@@ -5,7 +5,7 @@ const userSchema = new Schema({
     name: {
       type: String,
       trim: true,
-      required: [true, 'Username is required.'],
+      required: [true, 'Name is required.'],
       unique: true
     },
 
@@ -19,7 +19,6 @@ const userSchema = new Schema({
       type: String,
       required: [true, 'Password is required.']
     },
-
   });
 
 const User = model("User", userSchema);
