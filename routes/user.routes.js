@@ -28,6 +28,9 @@ router.post('/signup', (req, res, next) => {
             password: hashedPassword
         });
         })
+        .then(() => {
+            res.redirect('/');
+        })
         .catch((err) => next(err));
 })
 

@@ -1,12 +1,7 @@
-<div id="containerID">
+<div class="proves">
+
+  <div id="containerID">
   <div>
-    <h2>Ironhack</h2>
-    <b>
-      Autocomplete Ingredient search
-    </b>
-
-    <p></p>
-
     <form action="/ingredient" method="POST" id="searchID">
       <input
         name="name"
@@ -15,39 +10,42 @@
         id="searchInputID"
         value=""
       />
-      <button type="submit">Add</button>
+      <button class="button-ingredients" type="submit">Add</button>
     </form>
   </div>
-</div>
-<div>
-  <form action="/recipe" method="POST">
-    {{#each ingredients}}
-      <label for=""><input
-          type="checkbox"
-          name="name"
-          id=""
-          value="{{this.name}}"
-        />{{this.name}}</label><br />
-    {{/each}}
-    <button type="submit">Search Recipe</button>
-  </form>
+  </div>
+  <div id="ingredients">
+    <form action="/recipe" method="POST">
+      {{#each ingredients}}
+        <label for=""><input
+            type="checkbox"
+            name="name"
+            id=""
+            value="{{this.name}}"
+          />{{this.name}}</label><br />
+      {{/each}}
+      <button type="submit">Search Recipe</button>
+    </form>
+
+  </div>
+
+  <script type="text/javascript">
+    $(".searchClass").autocomplete({
+      source: function (request, response) {
+        console.log(request.term); 
+        $.ajax({ 
+          url:`https://api.edamam.com/auto-complete?app_id=bd86dcf4&app_key=1be558c4d81ea0b0ff3103d1aac1a9d0&&q=${request.term}`,
+          type: 'GET', 
+          Accept: 'application/json', 
+          dataType: "json", 
+          success: function(data) { 
+            console.log(data) 
+            response(data); 
+          }, 
+        }); 
+      }, 
+    });
+  </script>
 
 </div>
 
-<script type="text/javascript">
-  $(".searchClass").autocomplete({
-    source: function (request, response) {
-      console.log(request.term); 
-      $.ajax({ 
-        url:`https://api.edamam.com/auto-complete?app_id=bd86dcf4&app_key=1be558c4d81ea0b0ff3103d1aac1a9d0&&q=${request.term}`,
-        type: 'GET', 
-        Accept: 'application/json', 
-        dataType: "json", 
-        success: function(data) { 
-          console.log(data) 
-          response(data); 
-        }, 
-      }); 
-    }, 
-  });
-</script>
