@@ -6,12 +6,12 @@ require("dotenv/config");
 require("./db");
 
 // Handles http requests (express is node js framework)
-// https://www.npmjs.com/package/express
+// https://www.npmjs.com/package/express 
 const express = require("express"); 
 
 // Handles the handlebars
 // https://www.npmjs.com/package/hbs
-const hbs = require("hbs");
+const hbs = require("hbs"); 
 
 const app = express();
 
