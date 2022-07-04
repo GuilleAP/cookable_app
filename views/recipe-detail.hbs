@@ -1,0 +1,13 @@
+<h1>{{recipe.label}}</h1>
+<img src="{{recipe.image}}" alt="{{recipe.label}} image">
+<h2>{{recipe.ingredientLines.length}} Ingredients</h2>
+<ul>
+    {{#each recipe.ingredientLines}}
+    <li>{{this}}</li>
+    {{/each}}
+</ul>
+<form method="get" action="{{recipe.url}}">
+ <button type="submit">See full recipe</button>
+</form>
+
+{{!-- <iframe src="{{recipe.url}}" title="description" style="width:1200px; height:1200px"></iframe> --}}
