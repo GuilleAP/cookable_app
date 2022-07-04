@@ -45,7 +45,7 @@ router.post("/", isLoggedIn, (req, res, next) => {
 });
 
 
-router.get("/:id", (req, res, next) =>{
+router.get("/:id", isLoggedIn, (req, res, next) =>{
   const id = req.params.id
   axios
     .get(`https://api.edamam.com/api/recipes/v2/${id}?type=public&app_id=24bdd075&app_key=6c398de03b8385ee27901f328803a4f0`)
@@ -62,7 +62,7 @@ router.get("/:id", (req, res, next) =>{
           }
         }
 
-        res.render("recipe-detail", {recipe: recipe})
+        res.render("recipe-detail", {recipe: recipe, userInSession: req.session.currentUser})
     })
     .catch(err => console.log(err));
 })
