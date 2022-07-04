@@ -1,25 +1,36 @@
 const router = require("express").Router();
 const { isLoggedIn } = require("../middlewares/route-guard");
-const Ingredient = require("../models/Ingredient.model");
 const User = require("../models/User.model")
 
 
 router.get("/", isLoggedIn, (req, res, next) => {
-    Ingredient.find()
-    .then((ingredients) => {
-        res.render("ingredient", {ingredients, userInSession: req.session.currentUser });
+  User.findById(req.session.currentUser._id)
+    .then((user) => {
+      const userIngredients = user.ingredients;
+      res.render("ingredient", {userIngredients, userInSession: req.session.currentUser });
     })
-    .catch(err => next(err))
+    .catch((err) => next(err));
 });
+
 
 router.post("/", (req, res, next) => {
   const name = req.body.name;
-  console.log("HOLA", req.session);
-  Ingredient.create({
-    name: name,
-  })
-  .then((ingredient) => {
-    res.redirect("/ingredient");
+
+  User.findById(req.session.currentUser._id)
+  .then((user) => {
+
+    if(!user.ingredients.includes(name)) {
+      User.updateOne(
+        {_id : req.session.currentUser._id},
+        {$push: {ingredients: name}}
+      )
+      .then(() => {
+        res.redirect("ingredient");
+      })
+    } else {
+      console.log("Ingredient ja esta a la BD")
+      res.redirect('ingredient')
+    }
   })
   .catch((err) => {
     console.log(err);

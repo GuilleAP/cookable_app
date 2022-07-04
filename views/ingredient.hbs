@@ -16,13 +16,13 @@
   </div>
   <div id="ingredients">
     <form action="/recipe" method="POST">
-      {{#each ingredients}}
+      {{#each userIngredients}}
         <label for=""><input
             type="checkbox"
             name="name"
             id=""
-            value="{{this.name}}"
-          />{{this.name}}</label><br />
+            value="{{this}}"
+          />{{this}}</label><br />
       {{/each}}
       <button type="submit">Search Recipe</button>
     </form>

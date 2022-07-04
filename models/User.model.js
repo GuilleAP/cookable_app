@@ -20,10 +20,7 @@ const userSchema = new Schema({
       required: [true, 'Password is required.']
     },
 
-    ingredients: [{
-      type: Schema.Types.ObjectId, 
-      ref: "Ingredient"
-    }]
+    ingredients: { type: [String] }
 
   });
 

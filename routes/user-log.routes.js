@@ -37,7 +37,7 @@ router.post('/login', (req, res, next) => {
             } else if (bcryptjs.compareSync(password, user.password)) {
                 req.session.currentUser = user;
                 res.redirect('userProfile');
-             }
+            }
         })
 })
 
