@@ -12,7 +12,6 @@ router.get("/", (req, res, next) => {
 
 router.post("/", (req, res, next) => {
   const name = req.body.name;
-  console.log('HEREEEEEE',req.body.name)
   Ingredient.create({
     name: name,
   })
