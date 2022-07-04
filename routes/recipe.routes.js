@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const axios = require('axios');
 const { isLoggedIn } = require("../middlewares/route-guard");
-const Ingredient = require("../models/Ingredient.model");
+
 
 
 router.post("/", isLoggedIn, (req, res, next) => {
@@ -41,16 +41,15 @@ router.post("/", isLoggedIn, (req, res, next) => {
       for(let recipe of recipes){
         recipe.ID = recipe.recipe.uri.replace(reg, "");
       }
-      res.render("recipe", {recipe: recipes});
+      res.render("recipe", {recipe: recipes, userInSession: req.session.currentUser});
       console.log('Response from API is: ', response.data.hits[0].recipe.label);
-      res.render("recipe", {recipe: response.data.hits, userInSession: req.session.currentUser});
     })
     .catch(err => console.log(err));
 
 });
 
 
-router.get("/:id", (req, res, next) =>{
+router.get("/:id", isLoggedIn, (req, res, next) =>{
   const id = req.params.id
   axios
     .get(`https://api.edamam.com/api/recipes/v2/${id}?type=public&app_id=24bdd075&app_key=6c398de03b8385ee27901f328803a4f0`)
@@ -67,7 +66,7 @@ router.get("/:id", (req, res, next) =>{
           }
         }
 
-        res.render("recipe-detail", {recipe: recipe})
+        res.render("recipe-detail", {recipe: recipe, userInSession: req.session.currentUser})
     })
     .catch(err => console.log(err));
 })
