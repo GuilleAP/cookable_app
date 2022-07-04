@@ -1,14 +1,41 @@
 const router = require("express").Router();
 const axios = require('axios')
+const Ingredient = require("../models/Ingredient.model");
+
 
 
 router.post("/", (req, res, next) => {
   const name = req.body.name;
+  if(name ===undefined){
+    Ingredient.find()
+    .then((ingredients) => {
+        res.render("ingredient", {ingredients, errorMessage: "Please, select ingredients"});
+        return;
+    })
+    .catch(err => next(err))
+  }
   const recipesID= [];
   const reg = /(.*?)recipe_/;
-  console.log("INGREDIENTS PER RECEPTA:", req.body.name)
+  url = `https://api.edamam.com/api/recipes/v2?type=public&q=${req.body.name}&app_id=24bdd075&app_key=6c398de03b8385ee27901f328803a4f0`;
+  if(req.body.min !== 0){
+    url += '&ingr='+req.body.min
+  }
+  if(req.body.max !== 0){
+    if(req.body.min !== 0){
+      url += '-'+req.body.max
+    }else{
+    url += '&ingr='+req.body.max
+    }
+  }
+  if(req.body.cuisine !== 'All'){
+    url +=  '&cuisineType='+req.body.cuisine
+  }
+  if(req.body.meal !== 'All'){
+    url += '&mealType='+req.body.meal
+  }
+  console.log(url)
   axios
-    .get(`https://api.edamam.com/api/recipes/v2?type=public&q=${req.body.name}&app_id=24bdd075&app_key=6c398de03b8385ee27901f328803a4f0`)
+    .get(url)
     .then(response => {
       const recipes = JSON.parse(JSON.stringify(response.data.hits));
       for(let recipe of recipes){
@@ -17,6 +44,7 @@ router.post("/", (req, res, next) => {
       res.render("recipe", {recipe: recipes});
     })
     .catch(err => console.log(err));
+
 });
 
 
