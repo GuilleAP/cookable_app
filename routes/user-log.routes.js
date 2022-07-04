@@ -1,13 +1,15 @@
 const { Router } = require('express');
 const router = new Router();
 
+const { isLoggedIn, isLoggedOut } = require('../middlewares/route-guard.js');
+
 const bcryptjs = require('bcryptjs');
 const saltRounds = 10;
 
 const User = require('../models/User.model');
 
 
-router.get('/userProfile', (req, res, next) => {
+router.get('/userProfile', isLoggedIn, (req, res, next) => {
     res.render('user_profile/profile', { userInSession: req.session.currentUser });
 })
 
