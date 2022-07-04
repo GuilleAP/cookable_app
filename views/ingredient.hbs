@@ -53,11 +53,14 @@
         <option value="Snack">Snack</option>
         <option value="TeaTime">TeaTime</option>
       </select>
-      <button type="submit">Search Recipe</button>
-      <label for="min">Minimum ingredients (0 - no minimun):</label><br>
-      <input type="text" id="min" name="min"><br>
       <label for="max">Maximum ingredients (0 - no maximum):</label><br>
-      <input type="text" id="max" name="max"><br>
+      <input type="text" id="max" name="max" value="0"><br>
+        <label for=""><input
+        type="checkbox"
+        name="yourIngredients"
+        id=""
+      />Use only your ingredients</label><br />
+      <button type="submit">Search Recipe</button>
     </form>
     {{#if errorMessage}}
       <p class="error">{{errorMessage}}</p>
@@ -67,14 +70,12 @@
   <script type="text/javascript">
     $(".searchClass").autocomplete({
       source: function (request, response) {
-        console.log(request.term); 
         $.ajax({ 
           url:`https://api.edamam.com/auto-complete?app_id=bd86dcf4&app_key=1be558c4d81ea0b0ff3103d1aac1a9d0&&q=${request.term}`,
           type: 'GET', 
           Accept: 'application/json', 
           dataType: "json", 
           success: function(data) { 
-            console.log(data) 
             response(data); 
           }, 
         }); 
