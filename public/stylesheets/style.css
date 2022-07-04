@@ -9,12 +9,12 @@ a {
   font-size: 1.5em;
 }
  
-#signup-form {
+form {
   margin: 30px auto;
   width: 380px;
 }
  
-#signup-form label {
+form label {
   color: #666;
   display: inline-block;
   margin-bottom: 10px;
@@ -22,8 +22,8 @@ a {
   width: 100%;
 }
  
-#signup-form input,
-#signup-form button {
+form input,
+form button {
   box-sizing: border-box;
   font-size: 14px;
   outline: 0;
@@ -32,7 +32,7 @@ a {
   margin-bottom: 20px;
 }
  
-#signup-form button {
+form button {
   background: #1c5508;
   border: 1px solid #1c5508;
   border-radius: 4px;
@@ -47,7 +47,7 @@ a {
   width: 100%;
 }
  
-#signup-form button:hover {
+form button:hover {
   background: #fff;
   color: #43a3e6;
   transition: 0.3s ease background;
