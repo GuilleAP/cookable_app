@@ -1,6 +1,8 @@
 const { Router } = require('express');
 const router = new Router();
 
+const { isLoggedIn, isLoggedOut } = require('../middlewares/route-guard.js');
+
 const bcryptjs = require('bcryptjs');
 const saltRounds = 10;
 
@@ -33,5 +35,12 @@ router.post('/signup', (req, res, next) => {
         })
         .catch((err) => next(err));
 })
+
+router.post('/logout', (req, res, next) => {
+    req.session.destroy(err => {
+      if (err) next(err);
+      res.redirect('/');
+    });
+  });
 
 module.exports = router;

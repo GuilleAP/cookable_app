@@ -1,10 +1,11 @@
 const router = require("express").Router();
-const axios = require('axios')
 const Ingredient = require("../models/Ingredient.model");
 
+const axios = require('axios');
+const { isLoggedIn } = require("../middlewares/route-guard");
 
 
-router.post("/", (req, res, next) => {
+router.post("/", isLoggedIn, (req, res, next) => {
   const name = req.body.name;
   if(name ===undefined){
     Ingredient.find()
@@ -41,7 +42,7 @@ router.post("/", (req, res, next) => {
       for(let recipe of recipes){
         recipe.ID = recipe.recipe.uri.replace(reg, "");
       }
-      res.render("recipe", {recipe: recipes});
+      res.render("recipe", {recipe: recipes, userInSession: req.session.currentUser});
     })
     .catch(err => console.log(err));
 
