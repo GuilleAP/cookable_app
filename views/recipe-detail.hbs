@@ -8,9 +8,10 @@
 </ul>
 <h3>{{recipe.calories}} calories / serving</h3>
 <h3>{{recipe.totalDaily.ENERC_KCAL.quantity}} % daily value</h3>
-<form method="get" action="{{recipe.url}}">
+{{!-- <form method="get" action="{{recipe.url}}">
  <button type="submit">See full recipe</button>
-</form>
+</form> --}}
+<a  href="{{recipe.url}}" target="_blank">See full recipe</a>
 {{#each recipe.totalNutrients}}
     {{#if this.displayAsList}}
         <li>{{this.label}}: {{this.quantity}}</li>

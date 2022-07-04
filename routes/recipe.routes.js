@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const Ingredient = require("../models/Ingredient.model");
 
 const axios = require('axios');
 const { isLoggedIn } = require("../middlewares/route-guard");
@@ -15,18 +14,10 @@ router.post("/", isLoggedIn, (req, res, next) => {
     })
     .catch(err => next(err))
   }
-  const recipesID= [];
   const reg = /(.*?)recipe_/;
-  url = `https://api.edamam.com/api/recipes/v2?type=public&q=${req.body.name}&app_id=24bdd075&app_key=6c398de03b8385ee27901f328803a4f0`;
-  if(req.body.min !== 0){
-    url += '&ingr='+req.body.min
-  }
-  if(req.body.max !== 0){
-    if(req.body.min !== 0){
-      url += '-'+req.body.max
-    }else{
+  url = `https://api.edamam.com/api/recipes/v2?type=public&q=${name}&app_id=24bdd075&app_key=6c398de03b8385ee27901f328803a4f0`;
+  if(req.body.max !== '0'){
     url += '&ingr='+req.body.max
-    }
   }
   if(req.body.cuisine !== 'All'){
     url +=  '&cuisineType='+req.body.cuisine
@@ -34,15 +25,20 @@ router.post("/", isLoggedIn, (req, res, next) => {
   if(req.body.meal !== 'All'){
     url += '&mealType='+req.body.meal
   }
-  console.log(url)
   axios
     .get(url)
     .then(response => {
-      const recipes = JSON.parse(JSON.stringify(response.data.hits));
-      for(let recipe of recipes){
+      let newRecipes = []
+      for(let recipe of response.data.hits){
         recipe.ID = recipe.recipe.uri.replace(reg, "");
+        if(recipe.recipe.ingredients.length <= name.length && req.body.yourIngredients){
+          newRecipes.push(recipe);
+        }
       }
-      res.render("recipe", {recipe: recipes, userInSession: req.session.currentUser});
+      if(!req.body.yourIngredients){
+        newRecipes = JSON.parse(JSON.stringify(response.data.hits));
+      }
+      res.render("recipe", {recipe: newRecipes, userInSession: req.session.currentUser});
     })
     .catch(err => console.log(err));
 
