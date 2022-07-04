@@ -1,13 +1,10 @@
 const router = require("express").Router();
 const axios = require('axios');
 const { isLoggedIn } = require("../middlewares/route-guard");
-const axios = require('axios')
 const Ingredient = require("../models/Ingredient.model");
 
 
 router.post("/", isLoggedIn, (req, res, next) => {
-
-router.post("/", (req, res, next) => {
   const name = req.body.name;
   if(name ===undefined){
     Ingredient.find()
