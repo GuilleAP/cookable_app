@@ -5,7 +5,7 @@ const axios = require('axios');
 const { isLoggedIn } = require("../middlewares/route-guard");
 const User = require("../models/User.model")
 
-const webScraper = require("../public/js/web-scraper")
+const webScraper = require("../public/js/eroski-web-scraper")
 const translatte = require('translatte');
 
 
@@ -68,19 +68,14 @@ router.get("/:id", isLoggedIn, async function(req, res, next){
       return userIngredients.indexOf(ingredient) == -1;
     });
     let ingredientAndPrices = [];
+    let ingredientEsp = [];
     for(let ingredient of recipeIngredients){
-      let ingredientEsp =  await translatte(ingredient, {to: 'es'});
-      let prices = await webScraper(ingredientEsp.text);
-      let regex = /\\n\\t\\t\\t\\t"/g;
-      prices = prices.replace(regex, "")
-      regex = /\\n\\t\\t\\t\\t\\t/g;
-      prices = prices.replace(regex, "")
-      prices = prices.split("],")
-      regex = /[\[\]\"]/g;
-      ingredientAndPrices.push(prices[0].replace(regex, "").split(","));
+       ingredientEsp.push((await translatte(ingredient, {to: 'es'})).text)
     }
-    console.log(ingredientAndPrices)
-    res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser, ingredientsPrice: ingredientAndPrices})
+    console.log(ingredientEsp)
+    let prices = await webScraper(ingredientEsp);
+    console.log("🚀 ~ file: recipe.routes.js ~ line 77 ~ router.get ~ prices", prices)
+    res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser, prices: prices})
   } catch (err) {
     next(err);
   }

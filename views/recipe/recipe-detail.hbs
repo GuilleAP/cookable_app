@@ -14,9 +14,9 @@
 <a  href="{{recipe.url}}" target="_blank">See full recipe</a>
 
 <h1>EROSKI</h1>
-{{#each ingredientsPrice}}
-    <h3>{{this.[0]}} ({{this.[1]}})</h3>
-    <h3>{{this.[2]}}€</h3>
+{{#each prices}}
+    <h3>{{this.[0].[0]}} ({{this.[0].[1]}})</h3>
+    <h3>{{this.[1]}}€</h3>
 
 {{/each}}
 
