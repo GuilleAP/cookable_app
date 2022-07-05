@@ -5,7 +5,9 @@ const axios = require('axios');
 const { isLoggedIn } = require("../middlewares/route-guard");
 const User = require("../models/User.model")
 
-const webScraper = require("../public/js/eroski-web-scraper")
+const eroskiWebScraper = require("../public/js/eroski-web-scraper")
+const mercadonaWebScraper = require("../public/js/mercadona-web-scraper")
+
 const translatte = require('translatte');
 
 
@@ -73,9 +75,9 @@ router.get("/:id", isLoggedIn, async function(req, res, next){
        ingredientEsp.push((await translatte(ingredient, {to: 'es'})).text)
     }
     console.log(ingredientEsp)
-    let prices = await webScraper(ingredientEsp);
-    console.log("🚀 ~ file: recipe.routes.js ~ line 77 ~ router.get ~ prices", prices)
-    res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser, prices: prices})
+    let eroskiPrices = await eroskiWebScraper(ingredientEsp);
+    let mercadonaPrices = await mercadonaWebScraper(ingredientEsp);
+    res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser, eroskiPrices: eroskiPrices, mercadonaPrices: mercadonaPrices})
   } catch (err) {
     next(err);
   }

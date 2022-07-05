@@ -6,7 +6,7 @@ module.exports = async (ingredients) => {
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto('https://supermercado.eroski.es/en/supermarket/2059698-fresh/2059710-vegetables-and-leafy-vegetables/', {waitUntil: 'domcontentloaded'});
+    await page.goto('https://supermercado.eroski.es', {waitUntil: 'domcontentloaded'});
     console.log('pagina cargada')
     let matches = [];
     for(let ingredient of ingredients){
