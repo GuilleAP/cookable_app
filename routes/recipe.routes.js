@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const Recipe = require('../models/Recipe.model');
 
 const axios = require('axios');
 const { isLoggedIn } = require("../middlewares/route-guard");
@@ -7,7 +8,7 @@ const User = require("../models/User.model")
 const webScraper = require("../public/js/web-scraper")
 const translatte = require('translatte');
 
-//Puto git
+
 router.post("/", isLoggedIn, (req, res, next) => {
   const name = req.body.name;
   if(name ===undefined){
@@ -94,6 +95,10 @@ router.get("/:id", isLoggedIn, (req, res, next) =>{
         })
     })
     .catch(err => console.log(err));
+})
+
+router.get('/recipe/createRecipe', (req, res, next) => {
+  res.render('creatateRecipe');
 })
 
 module.exports = router;

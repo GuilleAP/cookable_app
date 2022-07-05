@@ -1,0 +1,39 @@
+<div>
+
+    <form action="/createRecipe" method="POST">
+
+        <h2>Create Recipe</h2>
+
+        <label>Name: <br>
+            <input type="text" name="name"/>
+        </label>
+
+        <br>
+        <br>
+
+        <label>Ingredients: <br><sub>Separa cada uno con una coma</sub><br>
+            <input type="text" name="ingredients" class="ingredient"/>
+        </label>
+
+        <br>
+        <br>
+
+        <label>URL: <br>
+            <input type="url" name="url"/>
+        </label>
+
+        <br>
+        <br>
+
+        <label>Steps: <br>
+            <textarea name="steps" id="" cols="80" rows="15"></textarea>
+        </label>
+
+        <br>
+        <br>
+
+        <button type="submit">Create recipe</button>
+
+    </form>
+
+</div>

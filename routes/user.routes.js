@@ -16,8 +16,9 @@ router.post('/signup', (req, res, next) => {
 
     const {name, email, password} = req.body;
 
-    if(!name || !email || !password) {
+    if(name === null || !email || !password) {
         res.render('user_signup/signup', { errorMessage: 'All fields are mandatory. Please provide your username, email and password.' });
+        return;
     }
 
     bcryptjs
