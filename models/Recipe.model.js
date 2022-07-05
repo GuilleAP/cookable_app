@@ -14,16 +14,10 @@ const recipeSchema = new Schema({
 
     url: {
         type: String,
-        unique: true
     },
 
     steps: {
-        type: [String]
-    },
-
-    imageUrl: {
-        type: String,
-        unique: true
+        type: String
     }
 
 });

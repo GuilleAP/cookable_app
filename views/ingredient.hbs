@@ -16,14 +16,14 @@
   </div>
   <div id="ingredients">
     <form action="/recipe" method="POST">
-      {{#each userIngredients}}
-        <label for=""><input
-            type="checkbox"
-            name="name"
-            id=""
-            value="{{this}}"
-          />{{this}}</label><br />
-      {{/each}}
+      <ul>
+        {{#each userIngredients}}
+          <li> 
+            <input type="checkbox" name="name" value="{{this}}"/> {{this}}
+            <a href="/ingredient/deleteIngredient/{{this}}">Delete</a>
+          </li>
+        {{/each}}
+      </ul>
       <select name="cuisine">
         <option value="All" selected>All</option>
         <option value="American">American</option>
@@ -53,6 +53,7 @@
         <option value="Snack">Snack</option>
         <option value="TeaTime">TeaTime</option>
       </select>
+      <br>
       <label for="max">Maximum ingredients (0 - no maximum):</label><br>
       <input type="text" id="max" name="max" value="0"><br>
         <label for=""><input
@@ -84,4 +85,3 @@
   </script>
 
 </div>
-

@@ -39,6 +39,9 @@ app.use("/ingredient", ingredient);
 const recipe = require("./routes/recipe.routes");
 app.use("/recipe", recipe);
 
+const createRecipe = require("./routes/createRecipe.routes");
+app.use("/createRecipe", createRecipe);
+
 const userSignup = require("./routes/user.routes");
 app.use("/", userSignup);
 
