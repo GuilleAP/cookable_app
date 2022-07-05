@@ -18,7 +18,10 @@
     "middleware": "^1.0.0",
     "mongoose": "^6.4.1",
     "morgan": "^1.10.0",
-    "serve-favicon": "^2.5.0"
+    "performance-now": "^2.1.0",
+    "puppeteer": "^15.3.0",
+    "serve-favicon": "^2.5.0",
+    "translatte": "^3.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.18"

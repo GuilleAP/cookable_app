@@ -7,7 +7,7 @@ router.get("/", isLoggedIn, (req, res, next) => {
   User.findById(req.session.currentUser._id)
     .then((user) => {
       const userIngredients = user.ingredients;
-      res.render("ingredient", {userIngredients, userInSession: req.session.currentUser });
+      res.render("ingredient/ingredient", {userIngredients, userInSession: req.session.currentUser });
     })
     .catch((err) => next(err));
 });

@@ -21,7 +21,7 @@ router.post('/login', (req, res, next) => {
     const {email, password} = req.body;
 
     if(email === '' || password === '') {
-        res.rener('user_profile/login', {
+        res.render('user_profile/login', {
             errorMessage: 'Please enter both, email and password to login.'
         });
         return;
