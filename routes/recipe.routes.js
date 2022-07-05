@@ -7,6 +7,7 @@ const User = require("../models/User.model")
 
 const eroskiWebScraper = require("../public/js/eroski-web-scraper")
 const mercadonaWebScraper = require("../public/js/mercadona-web-scraper")
+const carrefourWebScraper = require("../public/js/carrefour-web-scraper")
 
 const translatte = require('translatte');
 
@@ -51,11 +52,6 @@ router.post("/", isLoggedIn, (req, res, next) => {
 
 });
 
-
-
-
-
-
 router.get("/:id", isLoggedIn, async function(req, res, next){
   try{
     const id = req.params.id
@@ -75,9 +71,11 @@ router.get("/:id", isLoggedIn, async function(req, res, next){
        ingredientEsp.push((await translatte(ingredient, {to: 'es'})).text)
     }
     console.log(ingredientEsp)
-    let eroskiPrices = await eroskiWebScraper(ingredientEsp);
-    let mercadonaPrices = await mercadonaWebScraper(ingredientEsp);
-    res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser, eroskiPrices: eroskiPrices, mercadonaPrices: mercadonaPrices})
+    // let eroskiPrices = await eroskiWebScraper(ingredientEsp);
+    // let mercadonaPrices = await mercadonaWebScraper(ingredientEsp);
+    let carrefourPrices = await carrefourWebScraper(ingredientEsp);
+
+    // res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser, eroskiPrices: eroskiPrices, mercadonaPrices: mercadonaPrices})
   } catch (err) {
     next(err);
   }
