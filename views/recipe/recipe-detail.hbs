@@ -12,18 +12,12 @@
  <button type="submit">See full recipe</button>
 </form> --}}
 <a  href="{{recipe.url}}" target="_blank">See full recipe</a>
-{{#each recipe.totalNutrients}}
-    {{#if this.displayAsList}}
-        <li>{{this.label}}: {{this.quantity}}</li>
-    {{else}}
-        <h3>{{this.label}}: {{this.quantity}}</h3>
-    {{/if}}
-    
-{{/each}}
 
+<h1>EROSKI</h1>
 {{#each ingredientsPrice}}
-<h1>TEST:{{this}}</h1>
-    
+    <h3>{{this.[0]}} ({{this.[1]}})</h3>
+    <h3>{{this.[2]}}€</h3>
+
 {{/each}}
 
 

@@ -11,7 +11,6 @@ router.get("/", isLoggedIn, (req, res, next) => {
 
 router.post('/', (req, res, next) => {
     const ingredientsArr = req.body.ingredients.split(',');
-    console.log(req.body)
     Recipe.create( {
         name: req.body.name,
         ingredients: ingredientsArr,

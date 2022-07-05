@@ -25,10 +25,12 @@ module.exports = async (ingredient) => {
     console.log('classe product-description trobada')
 
     const matches = await page.evaluate(() =>
-    Array.from(document.querySelectorAll(".product-description")).map((product) => [
-      product.querySelector(".product-title > a").innerText,
-      product.querySelector(".price-offer-now").innerText.replace(/,/g, "'")
-    ])
+    [document.querySelector(".product-title > a").innerText,
+    document.querySelector(".price-offer-now").innerText.replace(/,/g, "'")]
+    // Array.from(document.querySelectorAll(".product-description")).map((product) => [
+    //   product.querySelector(".product-title > a").innerText,
+    //   product.querySelector(".price-offer-now").innerText.replace(/,/g, "'")
+    // ])
   );
 //   writeFileSync("./data/data.seed.json", JSON.stringify(matches));
 

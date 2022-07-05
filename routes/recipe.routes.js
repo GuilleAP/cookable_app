@@ -50,52 +50,92 @@ router.post("/", isLoggedIn, (req, res, next) => {
 });
 
 
-router.get("/:id", isLoggedIn, (req, res, next) =>{
-  const id = req.params.id
-  axios
-    .get(`https://api.edamam.com/api/recipes/v2/${id}?type=public&app_id=24bdd075&app_key=6c398de03b8385ee27901f328803a4f0`)
-    .then(response => {
-        const recipe = response.data.recipe;
-        recipe.calories = Math.round(recipe.calories)
-        recipe.totalDaily.ENERC_KCAL.quantity = Math.round(recipe.totalDaily.ENERC_KCAL.quantity)
-        for( let nutrient in recipe.totalNutrients){
-          recipe.totalNutrients[nutrient].quantity = Math.round(recipe.totalNutrients[nutrient].quantity)
-          if(["FASAT","FATRN", "FAMS", "FAPU", "CHOCDF.net","FIBTG", "SUGAR", "SUGAR.added"].includes(nutrient)){
-            recipe.totalNutrients[nutrient].displayAsList = true;
-          }else{
-            recipe.totalNutrients[nutrient].displayAsList = false;
-          }
-        }
-        res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser})
-        User.findById(req.session.currentUser._id)
-        .then((user) => {
-          const userIngredients = user.ingredients;
-          let recipeIngredients = recipe.ingredients.map(ingredient => {return ingredient.food})
-          recipeIngredients = recipeIngredients.filter(function(ingredient) {
-            return userIngredients.indexOf(ingredient) == -1;
-          });
-          let ingredientAndPrices = [];
-          for(let ingredient of recipeIngredients){
-            translatte(ingredient, {to: 'es'}).then(ingredientEsp => {
-              (async () => {
-                let prices = await webScraper(ingredientEsp.text);
-                let regex = /\\n\\t\\t\\t\\t"/g;
-                prices = prices.replace(regex, "")
-                regex = /\\n\\t\\t\\t\\t\\t/g;
-                prices = prices.replace(regex, "")
-                prices = prices.split("],")
-                regex = /[\[\]\"]/g;
-                ingredientAndPrices.push(prices[0].replace(regex, "").split(","));
-                res.render("recipe/recipe-detail", {ingredientsPrice: ingredientAndPrices})
-              })()     
-            }).catch(err => {
-              console.error(err);
-            });
-          } 
-        })
-    })
-    .catch(err => console.log(err));
-})
+
+
+
+
+router.get("/:id", isLoggedIn, async function(req, res, next){
+  try{
+    const id = req.params.id
+    const response = await axios.get(`https://api.edamam.com/api/recipes/v2/${id}?type=public&app_id=24bdd075&app_key=6c398de03b8385ee27901f328803a4f0`);
+    const recipe = response.data.recipe;
+    recipe.calories = Math.round(recipe.calories)
+    recipe.totalDaily.ENERC_KCAL.quantity = Math.round(recipe.totalDaily.ENERC_KCAL.quantity)
+    const user = await  User.findById(req.session.currentUser._id);
+    const userIngredients = user.ingredients;
+    let recipeIngredients = recipe.ingredients.map(ingredient => {return ingredient.food})
+    recipeIngredients = recipeIngredients.filter(function(ingredient) {
+      return userIngredients.indexOf(ingredient) == -1;
+    });
+    let ingredientAndPrices = [];
+    for(let ingredient of recipeIngredients){
+      let ingredientEsp =  await translatte(ingredient, {to: 'es'});
+      let prices = await webScraper(ingredientEsp.text);
+      let regex = /\\n\\t\\t\\t\\t"/g;
+      prices = prices.replace(regex, "")
+      regex = /\\n\\t\\t\\t\\t\\t/g;
+      prices = prices.replace(regex, "")
+      prices = prices.split("],")
+      regex = /[\[\]\"]/g;
+      ingredientAndPrices.push(prices[0].replace(regex, "").split(","));
+    }
+    console.log(ingredientAndPrices)
+    res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser, ingredientsPrice: ingredientAndPrices})
+  } catch (err) {
+    next(err);
+  }
+});
+
+  
+
+
+
+
+
+
+
+
+
+// router.get("/:id", isLoggedIn, (req, res, next) =>{
+//   const id = req.params.id
+//   axios
+//     .get(`https://api.edamam.com/api/recipes/v2/${id}?type=public&app_id=24bdd075&app_key=6c398de03b8385ee27901f328803a4f0`)
+//     .then(response => {
+//         const recipe = response.data.recipe;
+//         recipe.calories = Math.round(recipe.calories)
+//         recipe.totalDaily.ENERC_KCAL.quantity = Math.round(recipe.totalDaily.ENERC_KCAL.quantity)
+
+//         res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser})
+//         User.findById(req.session.currentUser._id)
+//         .then((user) => {
+//           const userIngredients = user.ingredients;
+//           let recipeIngredients = recipe.ingredients.map(ingredient => {return ingredient.food})
+//           recipeIngredients = recipeIngredients.filter(function(ingredient) {
+//             return userIngredients.indexOf(ingredient) == -1;
+//           });
+//           let ingredientAndPrices = [];
+//           for(let ingredient of recipeIngredients){
+//             translatte(ingredient, {to: 'es'}).then(ingredientEsp => {
+//               (async () => {
+//                 let prices = await webScraper(ingredientEsp.text);
+//                 let regex = /\\n\\t\\t\\t\\t"/g;
+//                 prices = prices.replace(regex, "")
+//                 regex = /\\n\\t\\t\\t\\t\\t/g;
+//                 prices = prices.replace(regex, "")
+//                 prices = prices.split("],")
+//                 regex = /[\[\]\"]/g;
+//                 ingredientAndPrices.push(prices[0].replace(regex, "").split(","));
+//                 // res.render("recipe/recipe-detail", {ingredientsPrice: ingredientAndPrices})
+//                 console.log(ingredientAndPrices)
+//               })()     
+//             }).catch(err => {
+//               console.error(err);
+//             });
+//           } 
+//         })
+//     })
+//     .catch(err => console.log(err));
+// })
 
 router.get('/recipe/createRecipe', (req, res, next) => {
   res.render('creatateRecipe');
