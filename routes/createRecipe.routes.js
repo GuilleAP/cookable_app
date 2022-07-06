@@ -2,6 +2,7 @@ const router = require("express").Router();
 const { isLoggedIn } = require("../middlewares/route-guard");
 const Recipe = require("../models/Recipe.model");
 const User = require("../models/User.model");
+const fileUploader = require('../config/cloudinary.config');
 
 
 router.get("/", isLoggedIn, (req, res, next) => {
@@ -9,12 +10,15 @@ router.get("/", isLoggedIn, (req, res, next) => {
 });
 
 
-router.post('/', (req, res, next) => {
+router.post('/', fileUploader.single('recipe-image'), (req, res, next) => {
     const ingredientsArr = req.body.ingredients.split(',');
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    console.log("🚀 ~ file: createRecipe.routes.js ~ line 16 ~ router.post ~ req.file.path", req.file.path)
     Recipe.create( {
         name: req.body.name,
         ingredients: ingredientsArr,
         url: req.body.url,
+        imageURL: req.file.path,
         steps: req.body.steps,
     })
     .then((recipe) => {
