@@ -31,7 +31,6 @@ module.exports = async (ingredients) => {
     }
     await browser.close();
     console.log('web-scraping done')
-    console.log("🚀 ~ file: caprabo-web-scraper.js ~ line 36 ~ module.exports= ~ matches", matches)
     return matches;
 };
 

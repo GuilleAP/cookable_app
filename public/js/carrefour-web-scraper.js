@@ -1,27 +1,39 @@
 const puppeteer = require('puppeteer');
+const Product = require("../../models/Product.model")
+
 module.exports = async (ingredients) => {
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     let matches = [];
 
-    for(let ingredient of ingredients){
-      await page.goto(`https://www.carrefour.es/?q=${ingredient}`, {waitUntil: 'domcontentloaded'});
+    let date = new Date();
+    let year = date.getFullYear();
+    let month = date.getMonth()+1;
+    let day = date.getDate();
+      
+    date = year + "/" + month + "/" + day;
+    for(const [i, ingredient] of ingredients.entries()){
+      await page.goto(`https://www.carrefour.es/?q=${ingredient.product}`, {waitUntil: 'domcontentloaded'});
       console.log('pagina cargada')
-    //   await page.waitForSelector('input[name=search]');
-    //   console.log('search trobat')
-    //   await page.$eval('input[name=search]', (el, ingredient) => {
-    //       el.value = ingredient;
-    //       console.log("🚀 ~ file: mercadona-web-scraper.js ~ line 14 ~ awaitpage.$eval ~ el.value", el.value)
-    //   }, ingredient);
-    //   console.log('Ingredient:',ingredient, ' introduït')
-
       await page.waitForSelector('.ebx-result-title');
       console.log('classe .ebx-result-title trobada')
       matches.push(await page.evaluate(() =>
       [document.querySelector(".ebx-result-title").innerText,
       document.querySelector(".ebx-result-price__value").innerText]
       ));
+      if(!ingredient.update){
+        Product.create({
+          tag: ingredient.product,
+          supermarket: 'Carrefour',
+          description: matches[i][0],
+          price: matches[i][1],
+          date: date
+        })
+      }else{
+        await Product.findOneAndUpdate({tag: ingredient.product, supermarket: 'Carrefour'}, {price:  matches[i][1], date: date});
+      }
+
     }
     await browser.close();
     console.log('web-scraping done')
