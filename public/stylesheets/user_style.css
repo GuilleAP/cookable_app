@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+
+
+#formUser {
+    margin: 30px auto;
+    width: 380px;
+    padding: 20px;
+    border: 1px solid #EADEB8;
+    background-color: #EADEB8;
+    border-radius: 15px;
+    
+}
+
+#formUser label {
+    color: #666;
+    display: inline-block;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+#formUser input,
+#formUser button {
+  box-sizing: border-box;
+  font-size: 14px;
+  outline: 0;
+  padding: 4px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#formUser button {
+    background: #C56824;
+    border: 1px solid #C56824;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    padding: 8px 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.3s ease background;
+    width: 100%;
+  }

@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+
+
+body {
+    font-family: 'Muli', sans-serif;
+    background-color: #ffffff
+}
+
+a {
+    text-decoration: none;
+}
+
+.nav-bar a {
+    color: #C56824;
+}
+
+#navbar-ul li {
+    list-style: none;
+}
+
+.nav-bar ul {
+    border-bottom: 2px solid #C56824;
+    height: 30px;
+    padding: 1em 0;
+    list-style-type: none;
+}
+   
+.nav-bar ul li {
+    line-height: 20px;
+}
+
+.nav-bar #to-right {
+    padding: 1em;
+    float: right;
+}
+
+.nav-bar #to-right span {
+    color: #CFB784;
+}
+
+.nav-bar #form h2 {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-bar #to-left {
+    float: left;
+}
+
+.nav-bar #to-left p a {
+    color: #CFB784;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.nav-bar #logout-form {
+    display: inline;
+} 
