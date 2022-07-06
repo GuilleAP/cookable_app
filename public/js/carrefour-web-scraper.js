@@ -16,11 +16,11 @@ module.exports = async (ingredients) => {
     //   }, ingredient);
     //   console.log('Ingredient:',ingredient, ' introduït')
 
-      await page.waitForSelector('.ebx-empathy-x__body');
-      console.log('classe .ebx-empathy-x__body trobada')
+      await page.waitForSelector('.ebx-result-title');
+      console.log('classe .ebx-result-title trobada')
       matches.push(await page.evaluate(() =>
-      [document.querySelector(".ebx-result-title.ebx-result__title"),
-      document.querySelector(".ebx-result-price__value")]
+      [document.querySelector(".ebx-result-title").innerText,
+      document.querySelector(".ebx-result-price__value").innerText]
       ));
     }
     await browser.close();

@@ -13,18 +13,29 @@
 </form> --}}
 <a  href="{{recipe.url}}" target="_blank">See full recipe</a>
 
-<h1>EROSKI</h1>
+<h3>EROSKI</h3>
 {{#each eroskiPrices}}
-    <h3>{{this.[0].[0]}} ({{this.[0].[1]}})</h3>
-    <h3>{{this.[1]}}€</h3>
+    <h5>{{this.[0].[0]}} ({{this.[0].[1]}})</h5>
+    <h5>{{this.[1]}}€</h3>
 
 {{/each}}
 
-<h1>MERCADONA</h1>
+<h3>MERCADONA</h3>
 {{#each mercadonaPrices}}
-    <h3>{{this.[0]}}</h3>
-    <h3>{{this.[1]}}</h3>
+    <h5>{{this.[0]}}</h5>
+    <h5>{{this.[1]}}</h5>
+{{/each}}
 
+<h3>CAPRABO</h3>
+{{#each capraboPrices}}
+    <h5>{{this.[0]}}</h5>
+    <h5>{{this.[1]}}</h5>
+{{/each}}
+
+<h3>CARREFOUR</h3>
+{{#each carrefourPrices}}
+    <h5>{{this.[0]}}</h5>
+    <h5>{{this.[1]}}</h5>
 {{/each}}
 
 
