@@ -14,8 +14,8 @@
                 
                 <div>
                     <ul>
-                    {{#each this.recipe.ingredients}}
-                        <li>{{this.food}}</li>
+                    {{#each this.coloredIngredients}}
+                        <li class="{{this.color}}">{{this.ingredient}}</li>
                     {{/each}}
                     </ul>
                 </div>
@@ -23,7 +23,9 @@
                 <form method="get" action="/recipe/{{this.ID}}">
                     <button type="submit">Recipe Details</button>
                 </form>
-                
+                {{!-- <form method="POST" action="/recipe/add-favorite/{{this.ID}}">
+                    <button type="submit"><i class="fa-solid fa-heart-circle-plus"></i></button>
+                </form> --}}
             </div>
         {{/each}}
     </div>

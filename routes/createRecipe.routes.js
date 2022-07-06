@@ -12,8 +12,7 @@ router.get("/", isLoggedIn, (req, res, next) => {
 
 router.post('/', fileUploader.single('recipe-image'), (req, res, next) => {
     const ingredientsArr = req.body.ingredients.split(',');
-    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    console.log("🚀 ~ file: createRecipe.routes.js ~ line 16 ~ router.post ~ req.file.path", req.file.path)
+
     Recipe.create( {
         name: req.body.name,
         ingredients: ingredientsArr,
@@ -53,5 +52,6 @@ router.get('/delete-recipe/:id', (req, res, next) => {
     })
     .catch((err) => next(err))
 });
+
 
 module.exports = router;

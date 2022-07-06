@@ -8,27 +8,27 @@
 <div class="recipes">
 
     {{#each user.recipes}}
+        {{#unless this.fromAPI}}
+            <div class="recipe-box">
+                <img src="{{this.imageURL}}" alt="">
+                <div>
+                    <h2>{{this.name}}</h2>
+                </div>
 
-    <div class="recipe-box">
-        <img src="{{this.imageURL}}" alt="">
-        <div>
-            <h2>{{this.name}}</h2>
-        </div>
+                <div>
+                    <h4>{{this.ingredients}}</h4>
+                </div>
 
-        <div>
-            <h4>{{this.ingredients}}</h4>
-        </div>
-        
-        <div>
-            <h4>{{this.steps}}</h4>
-        </div>
+                <div>
+                    <h4>{{this.steps}}</h4>
+                </div>
 
-        <a href="/createRecipe/edit-recipe/{{this._id}}">Update</a> <span> | </span>
+                <a href="/createRecipe/edit-recipe/{{this._id}}">Update</a> <span> | </span>
 
-        <a href="/createRecipe/delete-recipe/{{this._id}}">Delete</a>
-        
-    </div>
+                <a href="/createRecipe/delete-recipe/{{this._id}}">Delete</a>
 
+            </div>
+        {{/unless}}
     {{/each}}
     
 </div>
