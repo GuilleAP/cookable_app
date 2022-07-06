@@ -1,8 +1,15 @@
+<head>
+  <link rel="stylesheet" href="/stylesheets/ingredients_style.css" />
+</head>
+
 <div class="proves">
 
   <div id="containerID">
   <div>
     <form action="/ingredient" method="POST" id="searchID">
+
+      <h2>Select your ingredients</h2>
+
       <input
         name="name"
         type="text"
@@ -15,15 +22,24 @@
   </div>
   </div>
   <div id="ingredients">
+
+    <h2>My fredge</h2>
+
+    <br>
+
     <form action="/recipe" method="POST">
+
       <ul>
         {{#each userIngredients}}
           <li> 
             <input type="checkbox" name="name" value="{{this}}"/> {{this}}
-            <a href="/ingredient/deleteIngredient/{{this}}">Delete</a>
+            <a href="/ingredient/deleteIngredient/{{this}}"><i class="fa-solid fa-trash-can"></a></i>
           </li>
         {{/each}}
       </ul>
+
+      <br>
+
       <select name="cuisine">
         <option value="All" selected>All</option>
         <option value="American">American</option>
@@ -45,6 +61,10 @@
         <option value="South American">South American</option>
         <option value="South East Asian">South East Asian</option>
       </select>
+
+      <br>
+      <br>
+
         <select name="meal">
         <option value="All" selected>All</option>
         <option value="Breakfast">Breakfast</option>
@@ -53,14 +73,24 @@
         <option value="Snack">Snack</option>
         <option value="TeaTime">TeaTime</option>
       </select>
+
       <br>
+      <br>
+
       <label for="max">Maximum ingredients (0 - no maximum):</label><br>
-      <input type="text" id="max" name="max" value="0"><br>
+      <input type="text" id="max" name="max" value="0">
+      
+      <br>
+      <br>
+
         <label for=""><input
         type="checkbox"
         name="yourIngredients"
         id=""
       />Use only your ingredients</label><br />
+
+      <br>
+
       <button type="submit">Search Recipe</button>
     </form>
     {{#if errorMessage}}
