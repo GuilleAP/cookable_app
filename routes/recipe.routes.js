@@ -1,9 +1,11 @@
 const router = require("express").Router();
 const Recipe = require('../models/Recipe.model');
+const User = require("../models/User.model")
+const Product = require("../models/Product.model")
+
 
 const axios = require('axios');
 const { isLoggedIn } = require("../middlewares/route-guard");
-const User = require("../models/User.model")
 
 const eroskiWebScraper = require("../public/js/eroski-web-scraper")
 const mercadonaWebScraper = require("../public/js/mercadona-web-scraper")
@@ -67,74 +69,92 @@ router.get("/:id", isLoggedIn, async function(req, res, next){
     recipeIngredients = recipeIngredients.filter(function(ingredient) {
       return userIngredients.indexOf(ingredient) == -1;
     });
-    let ingredientAndPrices = [];
-    let ingredientEsp = [];
-    for(let ingredient of recipeIngredients){
-       ingredientEsp.push((await translatte(ingredient, {to: 'es'})).text)
-    }
-    console.log(ingredientEsp)
-    let eroskiPrices = await eroskiWebScraper(ingredientEsp);
-    let mercadonaPrices = await mercadonaWebScraper(ingredientEsp);
-    let capraboPrices = await capraboWebScraper(ingredientEsp);
-    let carrefourPrices = await carrefourWebScraper(ingredientEsp);
+    let eroskiSearch = [];
+    let mercadonaSearch = [];
+    let capraboSearch = [];
+    let carrefourSearch = [];
+    let eroskiMongo = [];
+    let mercadonaMongo = [];
+    let capraboMongo = [];
+    let carrefourMongo = [];
 
-    res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser, eroskiPrices: eroskiPrices, mercadonaPrices: mercadonaPrices, capraboPrices: capraboPrices, carrefourPrices: carrefourPrices})
+    let date = new Date();
+    let update = false;
+    for(let ingredient of recipeIngredients){
+        let productEs = (await translatte(ingredient, {to: 'es'})).text
+
+        let product = await Product.findOne({tag: productEs, supermarket: 'Eroski'});
+        if(!product){
+          console.log('Ingredient ', productEs, 'no guardat a Eroski');
+          update = false;
+          eroskiSearch.push({product: productEs, update: update});
+        }else if(product && (product.date.split("/")[0] != date.getFullYear() || product.date.split("/")[1] != (date.getMonth() + 1) || product.date.split("/")[2] - date.getDate() >= 7)){
+          console.log('Ingredient ', productEs, 'està desactualitzat a Eroski');
+          update = true;
+          eroskiSearch.push({product: productEs, update: update});
+        }else{
+          eroskiMongo.push(product)
+        }
+
+        product = await Product.findOne({tag: productEs, supermarket: 'Mercadona'});
+        if(!product){
+          console.log('Ingredient ', productEs, 'no guardat a Mercadona');
+          update = false;
+          mercadonaSearch.push({product: productEs, update: update});
+        }else if(product && (product.date.split("/")[0] != date.getFullYear() || product.date.split("/")[1] != (date.getMonth() + 1) || product.date.split("/")[2] - date.getDate() >= 7)){
+          console.log('Ingredient ', productEs, 'està desactualitzat a Mercadona');
+          update = true;
+          mercadonaSearch.push({product: productEs, update: update});
+        }else{
+          mercadonaMongo.push(product)
+        }
+
+        product = await Product.findOne({tag: productEs, supermarket: 'Caprabo'});
+        if(!product){
+          console.log('Ingredient ', productEs, 'no guardat a Caprabo');
+          update = false;
+          capraboSearch.push({product: productEs, update: update});
+        }else if(product && (product.date.split("/")[0] != date.getFullYear() || product.date.split("/")[1] != (date.getMonth() + 1) || product.date.split("/")[2] - date.getDate() >= 7)){
+          console.log('Ingredient ', productEs, 'està desactualitzat a Caprabo');
+          update = true;
+          capraboSearch.push({product: productEs, update: update});
+        }else{
+          capraboMongo.push(product)
+        }
+
+        product = await Product.findOne({tag: productEs, supermarket: 'Carrefour'});
+        if(!product){
+          console.log('Ingredient ', productEs, 'no guardat a Carrefour');
+          update = false;
+          carrefourSearch.push({product: productEs, update: update});
+        }else if(product && (product.date.split("/")[0] != date.getFullYear() || product.date.split("/")[1] != (date.getMonth() + 1) || product.date.split("/")[2] - date.getDate() >= 7)){
+          console.log('Ingredient ', productEs, 'està desactualitzat a Carrefour');
+          update = true;
+          carrefourSearch.push({product: productEs, update: update});
+        }else{
+          carrefourMongo.push(product)
+        }
+    }
+    let eroskiPrices;
+    let mercadonaPrices;
+    let capraboPrices;
+    let carrefourPrices;
+
+    if(eroskiSearch.length) eroskiPrices = await eroskiWebScraper(eroskiSearch);
+    if(mercadonaSearch.length) mercadonaPrices = await mercadonaWebScraper(mercadonaSearch);
+    if(capraboSearch.length) capraboPrices = await capraboWebScraper(capraboSearch);
+    if(carrefourSearch.length) carrefourPrices = await carrefourWebScraper(carrefourSearch);
+
+    
+
+    res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser, eroskiPrices: eroskiPrices, mercadonaPrices: mercadonaPrices, capraboPrices: capraboPrices, carrefourPrices: carrefourPrices,
+      eroskiMongo: eroskiMongo, mercadonaMongo: mercadonaMongo, capraboMongo: capraboMongo, carrefourMongo: carrefourMongo })
   } catch (err) {
     next(err);
   }
 });
 
   
-
-
-
-
-
-
-
-
-
-// router.get("/:id", isLoggedIn, (req, res, next) =>{
-//   const id = req.params.id
-//   axios
-//     .get(`https://api.edamam.com/api/recipes/v2/${id}?type=public&app_id=24bdd075&app_key=6c398de03b8385ee27901f328803a4f0`)
-//     .then(response => {
-//         const recipe = response.data.recipe;
-//         recipe.calories = Math.round(recipe.calories)
-//         recipe.totalDaily.ENERC_KCAL.quantity = Math.round(recipe.totalDaily.ENERC_KCAL.quantity)
-
-//         res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser})
-//         User.findById(req.session.currentUser._id)
-//         .then((user) => {
-//           const userIngredients = user.ingredients;
-//           let recipeIngredients = recipe.ingredients.map(ingredient => {return ingredient.food})
-//           recipeIngredients = recipeIngredients.filter(function(ingredient) {
-//             return userIngredients.indexOf(ingredient) == -1;
-//           });
-//           let ingredientAndPrices = [];
-//           for(let ingredient of recipeIngredients){
-//             translatte(ingredient, {to: 'es'}).then(ingredientEsp => {
-//               (async () => {
-//                 let prices = await webScraper(ingredientEsp.text);
-//                 let regex = /\\n\\t\\t\\t\\t"/g;
-//                 prices = prices.replace(regex, "")
-//                 regex = /\\n\\t\\t\\t\\t\\t/g;
-//                 prices = prices.replace(regex, "")
-//                 prices = prices.split("],")
-//                 regex = /[\[\]\"]/g;
-//                 ingredientAndPrices.push(prices[0].replace(regex, "").split(","));
-//                 // res.render("recipe/recipe-detail", {ingredientsPrice: ingredientAndPrices})
-//                 console.log(ingredientAndPrices)
-//               })()     
-//             }).catch(err => {
-//               console.error(err);
-//             });
-//           } 
-//         })
-//     })
-//     .catch(err => console.log(err));
-// })
-
 router.get('/recipe/createRecipe', (req, res, next) => {
   res.render('creatateRecipe');
 })

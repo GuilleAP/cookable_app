@@ -15,9 +15,12 @@
 
 <h3>EROSKI</h3>
 {{#each eroskiPrices}}
-    <h5>{{this.[0].[0]}} ({{this.[0].[1]}})</h5>
+    <h5>{{this.[0]}}</h5>
     <h5>{{this.[1]}}€</h3>
-
+{{/each}}
+{{#each eroskiMongo}}
+    <h5>{{this.description}}</h5>
+    <h5>{{this.price}}€</h3>
 {{/each}}
 
 <h3>MERCADONA</h3>
@@ -25,17 +28,29 @@
     <h5>{{this.[0]}}</h5>
     <h5>{{this.[1]}}</h5>
 {{/each}}
+{{#each mercadonaMongo}}
+    <h5>{{this.description}}</h5>
+    <h5>{{this.price}}</h3>
+{{/each}}
 
 <h3>CAPRABO</h3>
 {{#each capraboPrices}}
     <h5>{{this.[0]}}</h5>
     <h5>{{this.[1]}}</h5>
 {{/each}}
+{{#each capraboMongo}}
+    <h5>{{this.description}}</h5>
+    <h5>{{this.price}}</h3>
+{{/each}}
 
 <h3>CARREFOUR</h3>
 {{#each carrefourPrices}}
     <h5>{{this.[0]}}</h5>
     <h5>{{this.[1]}}</h5>
+{{/each}}
+{{#each carrefourMongo}}
+    <h5>{{this.description}}</h5>
+    <h5>{{this.price}}</h3>
 {{/each}}
 
 
