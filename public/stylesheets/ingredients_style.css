@@ -1,38 +1,66 @@
 .proves {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
+    gap: 50px;
+    padding: 20px;
+    padding-left: 50px;
 }
 
-li {
+h2 {
+    color: #C56824;
+}
+
+
+#ingredients li {
     list-style: none;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    border-bottom: 2px solid #C56824;;
+}
+ul {
+    padding-left: 0px;
 }
 
 a i {
     text-decoration: none;
-    color: black;
+    color: #C56824;
 }
 
 #ingredients {
-    border: 1px solid #EADEB8;
-    background-color: #EADEB8;
+    border: 1px solid #C56824;
     border-radius: 15px;
     padding: 30px;
     padding-left: 80px;
     padding-right: 80px;
+    box-shadow: 5px 10px 5px #a3a19f8f;
+}
+
+.list-ingredients {
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
 }
 
 #containerID {
-    border: 1px solid #EADEB8;
-    background-color: #EADEB8;
+    border: 1px solid #C56824;
+    box-shadow: 5px 10px 5px #a3a19f8f;
     border-radius: 15px;
     padding: 30px;
     list-style-type: none;
     height: 120px;
 }
 
+#containerID button {
+    background: #8cc643;
+    border: 1px solid #8cc643;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+}
+
 #ingredients button {
-    background: #C56824;
-    border: 1px solid #C56824;
+    background: #8cc643;
+    border: 1px solid #8cc643;
     border-radius: 4px;
     color: #fff;
     cursor: pointer;

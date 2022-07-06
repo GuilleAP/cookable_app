@@ -2,13 +2,17 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
 
 
+h2 {
+  color: #C56824;
+}
+
 #formUser {
     margin: 30px auto;
     width: 380px;
     padding: 20px;
-    border: 1px solid #EADEB8;
-    background-color: #EADEB8;
+    border: 2px solid #C56824;
     border-radius: 15px;
+    box-shadow: 5px 10px 5px #a3a19f8f;
     
 }
 
@@ -40,8 +44,8 @@
 }
 
 #formUser button {
-    background: #C56824;
-    border: 1px solid #C56824;
+    background: #8cc643;
+    border: 1px solid #8cc643;
     border-radius: 4px;
     color: #fff;
     cursor: pointer;

@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
 
+h3 {
+    color: #C56824;
+}
+
+
 a, span {
     color: #8cc643;
 }
 
-.recipes {
+.recipe {
     display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -14,11 +19,28 @@ a, span {
 	align-content: stretch;
     gap: 20px;
     padding: 50px;
+    gap: 30px;
 }
 
 .recipe-box {
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     border: 2px solid #C56824;
     border-radius: 15px;
-    padding: 20px;
     box-shadow: 5px 10px 5px #a3a19f8f;
+    padding: 30px;
+}
+
+.image-recipe {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    background: #8cc643;
+    border: 1px solid #8cc643;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
 }

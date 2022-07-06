@@ -29,6 +29,7 @@ a {
 .nav-bar button {
     border: none;
     background: none;
+    cursor: pointer;
 }
    
 .nav-bar ul li {
