@@ -29,3 +29,23 @@ h2 {
     transition: 0.3s ease background;
     width: 40%;
 }
+
+.img-upload-btn{
+    background: #8cc643;
+    border: 1px solid #8cc643;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px 16px;    
+}
+
+input[type='file']{
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+}
+
+#imageName{
+    color:#C56824;
+  }

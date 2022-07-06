@@ -5,31 +5,33 @@
 <div class="create-recipe">
     <form action="/createRecipe" method="POST" id="recipe-form" enctype="multipart/form-data">
 
-        <h2>Create Recipe</h2>
+        <h2>Create a recipe</h2>
 
         <label>Name: <br>
-            <input type="text" name="name"/>
+            <input type="text" name="name" placeholder="Required"/>
         </label>
 
         <br>
         <br>
 
-        <label>Ingredients: <br><sub>Separa cada uno con una coma</sub><br>
+        <label>Ingredients: <br><sub> Separated by a comma</sub><br>
             <input type="text" name="ingredients" class="ingredient"/>
         </label>
 
         <br>
         <br>
 
-        <label>URL: <br>
+        <label>External recipe Url: <br>
             <input type="url" name="url"/>
         </label>
 
         <br>
         <br>
 
-        <label>Image URL: <br>
-            <input type="file" name="recipe-image" />
+        <label>
+            <input type="file" name="recipe-image" id="inputTag"/>
+            <span class="img-upload-btn">Image Upload</span>
+            <span id="imageName"></span>
         </label>
 
         <br>
@@ -46,3 +48,12 @@
 
     </form>
 </div>
+
+    <script>
+        let input = document.getElementById("inputTag");
+        let imageName = document.getElementById("imageName")
+        input.addEventListener("change", ()=>{
+            let inputImage = document.querySelector("input[type=file]").files[0];
+            imageName.innerText = inputImage.name;
+        })
+    </script>
