@@ -16,7 +16,6 @@ router.get("/", isLoggedIn, (req, res, next) => {
 
 router.post("/", (req, res, next) => {
   const name = req.body.name;
-
   User.findById(req.session.currentUser._id)
   .then((user) => {
     if(!user.ingredients.includes(name)) {
