@@ -3,7 +3,7 @@
 </head>
 
 <div class="create-recipe">
-    <form action="/createRecipe" method="POST" id="recipe-form">
+    <form action="/createRecipe" method="POST" id="recipe-form" enctype="multipart/form-data">
 
         <h2>Create Recipe</h2>
 
@@ -23,6 +23,13 @@
 
         <label>URL: <br>
             <input type="url" name="url"/>
+        </label>
+
+        <br>
+        <br>
+
+        <label>Image URL: <br>
+            <input type="file" name="recipe-image" />
         </label>
 
         <br>

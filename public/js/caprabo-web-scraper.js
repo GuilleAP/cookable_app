@@ -1,66 +1,87 @@
-const puppeteer = require('puppeteer');
-var now = require("performance-now")
-const Product = require("../../models/Product.model")
-
+const puppeteer = require("puppeteer");
+var now = require("performance-now");
+const Product = require("../../models/Product.model");
 
 module.exports = async (ingredients) => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto("https://www.capraboacasa.com/portal/es", {
+    waitUntil: "domcontentloaded",
+  });
+  console.log("Caprabo website loaded");
+  let matches = [];
 
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto('https://www.capraboacasa.com/portal/es', {waitUntil: 'domcontentloaded'});
-    console.log('Caprabo website loaded')
-    let matches = [];
+  let date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+  date = year + "/" + month + "/" + day;
 
-    let date = new Date();
-    let year = date.getFullYear();
-    let month = date.getMonth()+1;
-    let day = date.getDate();
-    date = year + "/" + month + "/" + day;
+  let canContinue = true;
 
-    for(const [i, ingredient] of ingredients.entries()){
-      await page.waitForSelector('input[name=search]');
-      console.log('search trobat')
-      await page.$eval('input[name=search]', (el, ingredient) => {
-          el.value = ingredient.product;
-      }, ingredient);
-      console.log('Ingredient introduït')
-  
-      await page.waitForSelector('.search-button');
-      await page.evaluate(selector=>{
-          return document.querySelector('.search-button').click();
-      })
-      console.log('clicked');
-      await page.waitForSelector('.ellipsis');
-      console.log('classe .ellipsis" trobada')
-      matches.push(await page.evaluate(() =>
-      [document.querySelector(".ellipsis").innerText,
-      document.querySelector(".product-price").innerText]
-      ));
-      if(!ingredient.update){
+  for (const [i, ingredient] of ingredients.entries()) {
+    canContinue = true;
+    await page.waitForSelector("input[name=search]");
+    console.log("search trobat");
+    await page.$eval(
+      "input[name=search]",
+      (el, ingredient) => {
+        el.value = ingredient.product;
+      },
+      ingredient
+    );
+    console.log("Ingredient:", ingredient.product, "introduït");
+
+    await page.waitForSelector(".search-button");
+    await page.evaluate((selector) => {
+      return document.querySelector(".search-button").click();
+    });
+    console.log("clicked");
+    await page
+      .waitForSelector(".ellipsis", { timeout: 5000 })
+      .catch((e) => (canContinue = false));
+    if (!ingredient.update) {
+      console.log('classe .ellipsis" trobada');
+      matches.push(
+        await page.evaluate(() => [
+          document.querySelector(".ellipsis").innerHTML,
+          document.querySelector(".product-price").innerHTML,
+        ])
+      );
+      console.log(
+        "🚀 ~ file: caprabo-web-scraper.js ~ line 39 ~ module.exports= ~ matches",
+        matches
+      );
+      if (!ingredient.update) {
         Product.create({
           tag: ingredient.product,
-          supermarket: 'Caprabo',
+          supermarket: "Caprabo",
           description: matches[i][0],
           price: matches[i][1],
-          date: date
-        })
-      }else{
-        await Product.findOneAndUpdate({tag: ingredient.product, supermarket: 'Caprabo'}, {price:  matches[i][1], date: date});
+          date: date,
+        });
+      } else {
+        await Product.findOneAndUpdate(
+          { tag: ingredient.product, supermarket: "Caprabo" },
+          { price: matches[i][1], date: date }
+        );
       }
+    } else {
+      matches.push([ingredient.product, "NOT FOUND"]);
     }
-    await browser.close();
-    console.log('web-scraping done')
-    return matches;
+  }
+  await browser.close();
+  console.log("web-scraping done");
+  return matches;
 };
-
 
 // (async() => {
 //     const startTime = now();
 //     const res = await asyncFunc();
 //     const endTime = now();
-    
+
 //     const timeTaken = endTime - startTime;
-    
+
 //     console.log(`Time taken to perform addition =
 //             ${timeTaken.toFixed(3)} milliseconds`);
 //   })();

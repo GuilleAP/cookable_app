@@ -13,7 +13,11 @@ const recipeSchema = new Schema({
     },
 
     url: {
-        type: String,
+        type: String
+    },
+
+    imageURL: {
+        type: String
     },
 
     steps: {
