@@ -1,14 +1,31 @@
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
 
+h2 {
+    color: #C56824;
+}
+
 .create-recipe {
     display: flex;
     justify-content: center;
 }
 
 #recipe-form {
-    border: 1px solid #EADEB8;
-    background-color: #EADEB8;
+    border: 2px solid #C56824;
     border-radius: 15px;
     padding: 30px;
+    box-shadow: 5px 10px 5px #a3a19f8f;
+}
+
+#recipe-form button {
+    background: #8cc643;
+    border: 1px solid #8cc643;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.3s ease background;
+    width: 40%;
 }

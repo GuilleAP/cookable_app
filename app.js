@@ -42,6 +42,7 @@ app.use("/recipe", recipe);
 const createRecipe = require("./routes/createRecipe.routes");
 app.use("/createRecipe", createRecipe);
 
+app.use('/supers', index);
 
 const userSignup = require("./routes/user.routes");
 app.use("/", userSignup);

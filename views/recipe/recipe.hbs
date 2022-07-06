@@ -1,18 +1,32 @@
+<head>
+  <link rel="stylesheet" href="/stylesheets/recipes.css" />
+</head>
+
 {{#if recipe}}
-    {{#each recipe}}
-        <div>
-            <h3>{{this.recipe.label}}</h3>
-            <img src="{{this.recipe.image}}" alt="{{this.recipe.label}} image">
-            <ul>
-            {{#each this.recipe.ingredients}}
-                <li>{{this.food}}</li>
-            {{/each}}
-            </ul>
-            <form method="get" action="/recipe/{{this.ID}}">
-                <button type="submit">Recipe Details</button>
-            </form>
-        </div>
-    {{/each}}
+
+    <div class="recipe">
+        {{#each recipe}}
+            <div class="recipe-box">
+                <h3>{{this.recipe.label}}</h3>
+                <div class="image-recipe">
+                    <img src="{{this.recipe.image}}" alt="{{this.recipe.label}} image">
+                </div>
+                
+                <div>
+                    <ul>
+                    {{#each this.recipe.ingredients}}
+                        <li>{{this.food}}</li>
+                    {{/each}}
+                    </ul>
+                </div>
+
+                <form method="get" action="/recipe/{{this.ID}}">
+                    <button type="submit">Recipe Details</button>
+                </form>
+                
+            </div>
+        {{/each}}
+    </div>
 
 {{else}}
     <h3>No recipes found for selected ingredients</h3>

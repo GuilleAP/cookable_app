@@ -38,7 +38,6 @@ router.get('/delete-recipe/:id', (req, res, next) => {
 
     User.findById(req.session.currentUser._id)
     .then((user) => {
-        const newArray = user.recipes.filter(e => e !== id);
         User.findOneAndUpdate(
             {name: user.name},
             {$pull: { recipes: { $in: [req.params.id] }}}

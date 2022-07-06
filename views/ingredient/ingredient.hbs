@@ -23,7 +23,7 @@
   </div>
   <div id="ingredients">
 
-    <h2>My fredge</h2>
+    <h2>My fridge</h2>
 
     <br>
 
@@ -31,9 +31,11 @@
 
       <ul>
         {{#each userIngredients}}
-          <li> 
-            <input type="checkbox" name="name" value="{{this}}"/> {{this}}
-            <a href="/ingredient/deleteIngredient/{{this}}"><i class="fa-solid fa-trash-can"></i></a>
+          <li>
+            <div class="list-ingredients">
+              <input type="checkbox" name="name" value="{{this}}"/> {{this}}
+              <a href="/ingredient/deleteIngredient/{{this}}"><i class="fa-solid fa-trash-can"></i></a>
+            </div>
           </li>
         {{/each}}
       </ul>
