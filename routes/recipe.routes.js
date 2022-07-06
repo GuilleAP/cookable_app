@@ -73,6 +73,11 @@ router.get("/:id", isLoggedIn, async function(req, res, next){
     let mercadonaSearch = [];
     let capraboSearch = [];
     let carrefourSearch = [];
+    let eroskiMongo = [];
+    let mercadonaMongo = [];
+    let capraboMongo = [];
+    let carrefourMongo = [];
+
     let date = new Date();
     let update = false;
     for(let ingredient of recipeIngredients){
@@ -83,10 +88,12 @@ router.get("/:id", isLoggedIn, async function(req, res, next){
           console.log('Ingredient ', productEs, 'no guardat a Eroski');
           update = false;
           eroskiSearch.push({product: productEs, update: update});
-        }else if(product && (product.date.split("/")[0] != date.getFullYear()+1 || product.date.split("/")[1] != (date.getMonth() + 1) || product.date.split("/")[2] - date.getDate() >= 7)){
+        }else if(product && (product.date.split("/")[0] != date.getFullYear() || product.date.split("/")[1] != (date.getMonth() + 1) || product.date.split("/")[2] - date.getDate() >= 7)){
           console.log('Ingredient ', productEs, 'està desactualitzat a Eroski');
           update = true;
           eroskiSearch.push({product: productEs, update: update});
+        }else{
+          eroskiMongo.push(product)
         }
 
         product = await Product.findOne({tag: productEs, supermarket: 'Mercadona'});
@@ -98,6 +105,8 @@ router.get("/:id", isLoggedIn, async function(req, res, next){
           console.log('Ingredient ', productEs, 'està desactualitzat a Mercadona');
           update = true;
           mercadonaSearch.push({product: productEs, update: update});
+        }else{
+          mercadonaMongo.push(product)
         }
 
         product = await Product.findOne({tag: productEs, supermarket: 'Caprabo'});
@@ -109,6 +118,8 @@ router.get("/:id", isLoggedIn, async function(req, res, next){
           console.log('Ingredient ', productEs, 'està desactualitzat a Caprabo');
           update = true;
           capraboSearch.push({product: productEs, update: update});
+        }else{
+          capraboMongo.push(product)
         }
 
         product = await Product.findOne({tag: productEs, supermarket: 'Carrefour'});
@@ -120,15 +131,24 @@ router.get("/:id", isLoggedIn, async function(req, res, next){
           console.log('Ingredient ', productEs, 'està desactualitzat a Carrefour');
           update = true;
           carrefourSearch.push({product: productEs, update: update});
+        }else{
+          carrefourMongo.push(product)
         }
     }
-    let eroskiPrices = await eroskiWebScraper(eroskiSearch);
-    // let mercadonaPrices = await mercadonaWebScraper(mercadonaSearch);
-    // let capraboPrices = await capraboWebScraper(capraboSearch);
+    let eroskiPrices;
+    let mercadonaPrices;
+    let capraboPrices;
+    let carrefourPrices;
 
-    let carrefourPrices = await carrefourWebScraper(carrefourSearch);
+    if(eroskiSearch.length) eroskiPrices = await eroskiWebScraper(eroskiSearch);
+    if(mercadonaSearch.length) mercadonaPrices = await mercadonaWebScraper(mercadonaSearch);
+    if(capraboSearch.length) capraboPrices = await capraboWebScraper(capraboSearch);
+    if(carrefourSearch.length) carrefourPrices = await carrefourWebScraper(carrefourSearch);
 
-    // res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser, eroskiPrices: eroskiPrices, mercadonaPrices: mercadonaPrices, capraboPrices: capraboPrices, carrefourPrices: carrefourPrices})
+    
+
+    res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser, eroskiPrices: eroskiPrices, mercadonaPrices: mercadonaPrices, capraboPrices: capraboPrices, carrefourPrices: carrefourPrices,
+      eroskiMongo: eroskiMongo, mercadonaMongo: mercadonaMongo, capraboMongo: capraboMongo, carrefourMongo: carrefourMongo })
   } catch (err) {
     next(err);
   }

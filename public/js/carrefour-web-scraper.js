@@ -12,10 +12,10 @@ module.exports = async (ingredients) => {
     let month = date.getMonth()+1;
     let day = date.getDate();
     date = year + "/" + month + "/" + day;
-    
+
     for(const [i, ingredient] of ingredients.entries()){
       await page.goto(`https://www.carrefour.es/?q=${ingredient.product}`, {waitUntil: 'domcontentloaded'});
-      console.log('pagina cargada')
+      console.log('Carrefour website loaded')
       await page.waitForSelector('.ebx-result-title');
       console.log('classe .ebx-result-title trobada')
       matches.push(await page.evaluate(() =>
@@ -33,7 +33,6 @@ module.exports = async (ingredients) => {
       }else{
         await Product.findOneAndUpdate({tag: ingredient.product, supermarket: 'Carrefour'}, {price:  matches[i][1], date: date});
       }
-
     }
     await browser.close();
     console.log('web-scraping done')

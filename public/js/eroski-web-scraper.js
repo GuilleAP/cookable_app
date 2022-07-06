@@ -8,11 +8,11 @@ module.exports = async (ingredients) => {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto('https://supermercado.eroski.es', {waitUntil: 'domcontentloaded'});
-    console.log('pagina cargada')
+    console.log('Eroski website loaded')
     let matches = [];
 
     let date = new Date();
-    let year = date.getFullYear()+1;
+    let year = date.getFullYear();
     let month = date.getMonth()+1;
     let day = date.getDate();
     date = year + "/" + month + "/" + day;
