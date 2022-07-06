@@ -43,13 +43,24 @@ router.post("/", isLoggedIn, (req, res, next) => {
       let newRecipes = []
       for(let recipe of response.data.hits){
         recipe.ID = recipe.recipe.uri.replace(reg, "");
+        recipe.coloredIngredients =[]
+        for(let ingredient of recipe.recipe.ingredients){         
+          if(name.includes(ingredient.food)){
+            recipe.coloredIngredients.push({ingredient: ingredient.food, color: 'green'})
+          }else{
+            recipe.coloredIngredients.push({ingredient: ingredient.food, color: 'red'})
+          }
+        }
         if(recipe.recipe.ingredients.length <= name.length && req.body.yourIngredients){
           newRecipes.push(recipe);
         }
       }
       if(!req.body.yourIngredients){
-        newRecipes = JSON.parse(JSON.stringify(response.data.hits));
-      }
+          newRecipes = JSON.parse(JSON.stringify(response.data.hits));
+      }  
+        
+
+
       res.render("recipe/recipe", {recipe: newRecipes, userInSession: req.session.currentUser});
     })
     .catch(err => console.log(err));
@@ -159,4 +170,23 @@ router.get('/recipe/createRecipe', (req, res, next) => {
   res.render('creatateRecipe');
 })
 
+// router.post('/add-favorite/:id', (req, res, next) => {
+//   Recipe.create( {
+//     name: req.params.id,
+//     ingredients: [],
+//     url: '',
+//     imageURL: '',
+//     steps:'',
+//     fromAPI:true
+// })
+// .then((recipe) => {
+//     User.updateOne(
+//         {_id : req.session.currentUser._id},
+//         {$push: {recipes: recipe}})
+//     .then(() => {
+//         res.redirect('/userProfile');
+//     })
+// }).catch((err) => next(err));
+
+// })
 module.exports = router;
