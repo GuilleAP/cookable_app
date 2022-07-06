@@ -79,18 +79,18 @@ router.get("/:id", isLoggedIn, async function(req, res, next){
         let productEs = (await translatte(ingredient, {to: 'es'})).text
 
         let product = await Product.findOne({tag: productEs, supermarket: 'Eroski'});
-        if(!product || (product && (product.date.split("/")[0] !== date.getFullYear() || product.date.split("/")[1] !== date.getMonth + 1 || product.date.split("/")[2] - date.getDate >= 7))){
+        if(!product){
           console.log('Ingredient ', productEs, 'no guardat a Eroski');
           update = false;
           eroskiSearch.push({product: productEs, update: update});
-        }else if(product && (product.date.split("/")[0] != date.getFullYear() || product.date.split("/")[1] != (date.getMonth() + 1) || product.date.split("/")[2] - date.getDate() >= 7)){
+        }else if(product && (product.date.split("/")[0] != date.getFullYear()+1 || product.date.split("/")[1] != (date.getMonth() + 1) || product.date.split("/")[2] - date.getDate() >= 7)){
           console.log('Ingredient ', productEs, 'està desactualitzat a Eroski');
           update = true;
           eroskiSearch.push({product: productEs, update: update});
         }
 
         product = await Product.findOne({tag: productEs, supermarket: 'Mercadona'});
-        if(!product || (product && (product.date.split("/")[0] !== date.getFullYear || product.date.split("/")[1] !== date.getMonth + 1 || product.date.split("/")[2] - date.getDate >= 7))){
+        if(!product){
           console.log('Ingredient ', productEs, 'no guardat a Mercadona');
           update = false;
           mercadonaSearch.push({product: productEs, update: update});
@@ -101,7 +101,7 @@ router.get("/:id", isLoggedIn, async function(req, res, next){
         }
 
         product = await Product.findOne({tag: productEs, supermarket: 'Caprabo'});
-        if(!product || (product && (product.date.split("/")[0] !== date.getFullYear || product.date.split("/")[1] !== date.getMonth + 1 || product.date.split("/")[2] - date.getDate >= 7))){
+        if(!product){
           console.log('Ingredient ', productEs, 'no guardat a Caprabo');
           update = false;
           capraboSearch.push({product: productEs, update: update});

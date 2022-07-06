@@ -11,8 +11,8 @@ module.exports = async (ingredients) => {
     let year = date.getFullYear();
     let month = date.getMonth()+1;
     let day = date.getDate();
-      
     date = year + "/" + month + "/" + day;
+    
     for(const [i, ingredient] of ingredients.entries()){
       await page.goto(`https://www.carrefour.es/?q=${ingredient.product}`, {waitUntil: 'domcontentloaded'});
       console.log('pagina cargada')
