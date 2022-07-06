@@ -1,1 +1,33 @@
+<head>
+  <link rel="stylesheet" href="/stylesheets/profile.css" />
+</head>
+
 <h1>Welcome {{userInSession.name}}!</h1>
+
+
+<div class="recipes">
+
+    {{#each user.recipes}}
+
+    <div class="recipe-box">
+        <div>
+            <h2>{{this.name}}</h2>
+        </div>
+
+        <div>
+            <h4>{{this.ingredients}}</h4>
+        </div>
+        
+        <div>
+            <h4>{{this.steps}}</h4>
+        </div>
+
+        <a href="/createRecipe/edit-recipe/{{this._id}}">Update</a> <span> | </span>
+
+        <a href="/createRecipe/delete-recipe/{{this._id}}">Delete</a>
+        
+    </div>
+
+    {{/each}}
+</div>
+

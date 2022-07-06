@@ -12,6 +12,15 @@
     
 }
 
+.error {
+  background: #a83a07;
+  box-sizing: border-box;
+  color: #fff;
+  margin: 20px auto;
+  padding: 20px;
+  width: 100%;
+}
+
 #formUser label {
     color: #666;
     display: inline-block;

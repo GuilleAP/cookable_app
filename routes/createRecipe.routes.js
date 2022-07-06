@@ -28,4 +28,27 @@ router.post('/', (req, res, next) => {
     .catch((err) => next(err));
 });
 
+
+router.get('/delete-recipe/:id', (req, res, next) => {
+    const id = req.params.id;
+
+    User.findById(req.session.currentUser._id)
+    .then((user) => {
+        const newArray = user.recipes.filter(e => e !== id);
+        User.findOneAndUpdate(
+            {name: user.name},
+            {$pull: { recipes: { $in: [req.params.id] }}}
+        )
+        .then(() => {
+            Recipe.findByIdAndDelete(req.params.id)
+            .then((response) => {
+                res.redirect('/userProfile');
+            })
+            .catch((err) => next(err))
+        })
+        .catch((err) => next(err))
+    })
+    .catch((err) => next(err))
+});
+
 module.exports = router;

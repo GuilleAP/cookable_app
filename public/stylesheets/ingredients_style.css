@@ -7,6 +7,11 @@ li {
     list-style: none;
 }
 
+a i {
+    text-decoration: none;
+    color: black;
+}
+
 #ingredients {
     border: 1px solid #EADEB8;
     background-color: #EADEB8;
@@ -22,7 +27,7 @@ li {
     border-radius: 15px;
     padding: 30px;
     list-style-type: none;
-    padding-right: 200px;
+    height: 120px;
 }
 
 #ingredients button {

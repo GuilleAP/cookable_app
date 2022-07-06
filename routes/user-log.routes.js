@@ -7,11 +7,18 @@ const bcryptjs = require('bcryptjs');
 const saltRounds = 10;
 
 const User = require('../models/User.model');
+const Recipe = require("../models/Recipe.model");
 
 
 router.get('/userProfile', isLoggedIn, (req, res, next) => {
-    res.render('user_profile/profile', { userInSession: req.session.currentUser });
-})
+    User.findById(req.session.currentUser._id)
+    .populate('recipes')
+    .then((user) => {
+        res.render('user_profile/profile', {user,  userInSession: req.session.currentUser });
+    })
+    .catch((err) => next(err));
+    
+});
 
 router.get('/login', (req, res, next) => {
     res.render('user_profile/login');
@@ -39,6 +46,7 @@ router.post('/login', (req, res, next) => {
                 res.redirect('userProfile');
             }
         })
-})
+});
+
 
 module.exports = router;

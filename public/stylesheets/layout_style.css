@@ -25,6 +25,11 @@ a {
     padding: 1em 0;
     list-style-type: none;
 }
+
+.nav-bar button {
+    border: none;
+    background: none;
+}
    
 .nav-bar ul li {
     line-height: 20px;

@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+
+.recipes {
+    display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: baseline;
+	align-content: stretch;
+    gap: 20px;
+    padding: 50px;
+}
+
+.recipe-box {
+    border: 1px solid #EADEB8;
+    background-color: #EADEB8;
+    border-radius: 15px;
+    padding: 20px;
+}
