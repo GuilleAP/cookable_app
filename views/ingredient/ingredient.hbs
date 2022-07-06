@@ -20,6 +20,9 @@
       <button class="button-ingredients" type="submit">Add</button>
     </form>
   </div>
+  {{#if errorMessage}}
+    <p class="error">{{errorMessage}}</p>
+  {{/if}}
   </div>
   <div id="ingredients">
 
@@ -42,6 +45,7 @@
 
       <br>
 
+      <label for="max">Select cuisine type:</label><br>
       <select name="cuisine">
         <option value="All" selected>All</option>
         <option value="American">American</option>
@@ -67,6 +71,7 @@
       <br>
       <br>
 
+      <label for="max">Select meal type:</label><br>
         <select name="meal">
         <option value="All" selected>All</option>
         <option value="Breakfast">Breakfast</option>
@@ -79,7 +84,7 @@
       <br>
       <br>
 
-      <label for="max">Maximum ingredients (0 - no maximum):</label><br>
+      <label for="max">Maximum ingredients (0: no maximum):</label><br>
       <input type="text" id="max" name="max" value="0">
       
       <br>
