@@ -119,8 +119,8 @@ router.get("/:id/:selectedIngredients", isLoggedIn, async function (req, res, ne
 
     let date = new Date();
     let update = false;
-    for (let product of webscrapProducts) {
-      let productEs = (await translatte(product, { to: "es" })).text;
+    for (let productEn of webscrapProducts) {
+      let productEs = (await translatte(productEn, { to: "es" })).text;
 
       let product = await Product.findOne({
         tag: productEs,

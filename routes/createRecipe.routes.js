@@ -12,6 +12,8 @@ router.get("/", isLoggedIn, (req, res, next) => {
 
 router.post('/', fileUploader.single('recipe-image'), (req, res, next) => {
     const ingredientsArr = req.body.ingredients.split(',');
+    const stepsArray = req.body.steps.split(',');
+
     console.log(req);
     let image;
     if(req.file === undefined) {
@@ -25,7 +27,7 @@ router.post('/', fileUploader.single('recipe-image'), (req, res, next) => {
         ingredients: ingredientsArr,
         url: req.body.url,
         imageURL: image,
-        steps: req.body.steps,
+        steps: stepsArray,
     })
     .then((recipe) => {
         User.updateOne(
@@ -74,12 +76,14 @@ router.get('/edit-recipe/:id', isLoggedIn, (req, res, next) => {
 
 router.post('/edit-recipe/:id', (req, res, next) => {
     const id = req.params.id;
+    req.body.ingredients = req.body.ingredients.split(',');
+    req.body.steps = req.body.steps.split(',');
 
     Recipe.findByIdAndUpdate(id, req.body)
     .then((recipe) => {
         res.redirect('/userProfile');
     })
-
+    .catch(err => next(err));
 });
 
 module.exports = router;

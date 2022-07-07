@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
 
+h3 {
+    color: #C56824;
+}
+
 a, span {
     color: #8cc643;
 }
@@ -22,3 +26,5 @@ a, span {
     padding: 20px;
     box-shadow: 5px 10px 5px #a3a19f8f;
 }
+
+

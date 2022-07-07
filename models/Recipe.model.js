@@ -21,7 +21,7 @@ const recipeSchema = new Schema({
     },
 
     steps: {
-        type: String
+        type: [String]
     },
     fromAPI: {
         type: Boolean,

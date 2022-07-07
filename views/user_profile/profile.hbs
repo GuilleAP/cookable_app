@@ -2,7 +2,7 @@
   <link rel="stylesheet" href="/stylesheets/profile.css" />
 </head>
 
-<h1>Welcome {{userInSession.name}}!</h1>
+<h1 class="welcome">Welcome <span class="welcome-name">{{userInSession.name}}</span>!</h1>
 
 
 <div class="recipes">
@@ -11,22 +11,26 @@
         {{#unless this.fromAPI}}
             <div class="recipe-box">
                 <div>
-                    <h2>{{this.name}}</h2>
+                    <h3>{{this.name}}</h3>
                 </div>
                 <img src="{{this.imageURL}}" alt="" width="300px" height="300px">
                 <div>
                     <ul>
                         {{#each this.ingredients}}
-                        <li><h4>{{this}}</h4></li>
+                            <li>{{this}}</li>
                         {{/each}}
                     </ul>
                 </div>
 
                 <div>
-                    <h4>{{this.steps}}</h4>
+                    <ol>
+                        {{#each this.steps}}
+                            <li>{{this}}</li>
+                        {{/each}}
+                    </ol>
                 </div>
 
-                <a href="/createRecipe/edit-recipe/{{this._id}}">Update</a> <span> | </span>
+                <a href="/createRecipe/edit-recipe/{{this._id}}">Edit</a> <span> | </span>
 
                 <a href="/createRecipe/delete-recipe/{{this._id}}">Delete</a>
 
