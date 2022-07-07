@@ -16,6 +16,7 @@
     "express": "^4.18.1",
     "express-session": "^1.17.3",
     "hbs": "^4.2.0",
+    "heroku": "^7.60.2",
     "middleware": "^1.0.0",
     "mongoose": "^6.4.1",
     "morgan": "^1.10.0",
@@ -28,5 +29,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.18"
+  },
+  "engines": {
+    "node": "16.15.1"
   }
 }
