@@ -10,26 +10,37 @@ a {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    justify-content: center;
 }
 
-.recipe-content {
+.recipe-div{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.details-content {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
+    width: 60%;
     gap: 150px;
-    width: 80%;
     border: 1px solid #C56824;
     border-radius: 5px;
-    padding: 15px;
     box-shadow: 5px 10px 5px #a3a19f8f;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
 
 .ing {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     padding-top: 0;
 }
 
 .prices {
+    flex-basis: 40%;
     gap: 150px;
-    width: 80%;
     border: 1px solid #C56824;
     border-radius: 5px;
     padding: 15px;
@@ -38,8 +49,21 @@ a {
 
 .scrap-content {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
-    width: 40%;
+    box-sizing: border-box;
+
+}
+
+button{
+    background: #8cc643;
+    border: 1px solid #8cc643;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: 0.3s ease background;
 }

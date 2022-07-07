@@ -6,10 +6,11 @@
 
     <h1>{{recipe.label}}</h1>
 
-    <div class="recipe-content">
+    <div class="recipe-div">
+ <div class="details-content">
         
         <div>
-            <img src="{{recipe.image}}" alt="" width="300px" height="300px">
+            <img src="{{recipe.image}}" alt="" width="350px" height="350px">
         </div>
 
         <div class="ing">
@@ -22,15 +23,18 @@
             <h3>{{recipe.calories}} calories / serving</h3>
             <h3>{{recipe.totalDaily.ENERC_KCAL.quantity}} % daily value</h3>
 
-            <a  href="{{recipe.url}}" target="_blank">See full recipe</a>
+            <form action="{{recipe.url}}" target="_blank">
+                <button type="submit" >See full recipe</button>
+            </form>
+            {{!-- <a  href="{{recipe.url}}" target="_blank">See full recipe</a> --}}
         </div>
     
     </div>
+    </div>
+   
 
-
+    <h1>The best prices!</h1>
     <div class="scrap-content">
-
-        <h1>The best prices!</h1>
 
         <div class="prices">
             <a href="https://www.eroski.es/" target="_blank"><img src="/images/eroski_logo.png" alt="" width="260" height="60"></a>

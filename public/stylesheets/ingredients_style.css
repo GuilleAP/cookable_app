@@ -1,9 +1,9 @@
 .proves {
     display: flex;
     justify-content: flex-start;
-    gap: 50px;
+    gap: 20%;
     padding: 20px;
-    padding-left: 50px;
+    padding-left: 10%;
 }
 
 h2 {

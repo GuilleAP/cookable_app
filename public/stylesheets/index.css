@@ -20,3 +20,25 @@
 .index p {
 	color: #83807e;
 }
+
+#icons-div{
+
+	width: 220px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+
+}
+
+.fa{
+	color: #83807e;
+}
+
+.fab{
+	color: #83807e;
+
+}
+
+#developers{
+	margin-top: 50px;
+}
