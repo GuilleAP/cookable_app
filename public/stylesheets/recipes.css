@@ -40,7 +40,7 @@ a, span {
     flex-direction: column;
     flex-wrap: wrap;
     border: 2px solid #C56824;
-    border-radius: 15px;
+    border-radius: 5px;
     box-shadow: 5px 10px 5px #a3a19f8f;
     padding: 30px;
 }

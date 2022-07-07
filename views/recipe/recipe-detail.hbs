@@ -1,57 +1,90 @@
-<h1>{{recipe.label}}</h1>
-<img src="{{recipe.image}}" alt="{{recipe.label}} image">
-<h2>{{recipe.ingredientLines.length}} Ingredients</h2>
-<ul>
-    {{#each recipe.ingredientLines}}
-    <li>{{this}}</li>
-    {{/each}}
-</ul>
-<h3>{{recipe.calories}} calories / serving</h3>
-<h3>{{recipe.totalDaily.ENERC_KCAL.quantity}} % daily value</h3>
-{{!-- <form method="get" action="{{recipe.url}}">
- <button type="submit">See full recipe</button>
-</form> --}}
-<a  href="{{recipe.url}}" target="_blank">See full recipe</a>
+<head>
+  <link rel="stylesheet" href="/stylesheets/recipe-details.css" />
+</head>
 
-<h3>EROSKI</h3>
-{{#each eroskiPrices}}
-    <h5>{{this.[0]}}</h5>
-    <h5>{{this.[1]}}€</h3>
-{{/each}}
-{{#each eroskiMongo}}
-    <h5>{{this.description}}</h5>
-    <h5>{{this.price}}€</h3>
-{{/each}}
+<div class="details">
 
-<h3>MERCADONA</h3>
-{{#each mercadonaPrices}}
-    <h5>{{this.[0]}}</h5>
-    <h5>{{this.[1]}}</h5>
-{{/each}}
-{{#each mercadonaMongo}}
-    <h5>{{this.description}}</h5>
-    <h5>{{this.price}}</h3>
-{{/each}}
+    <h1>{{recipe.label}}</h1>
 
-<h3>CAPRABO</h3>
-{{#each capraboPrices}}
-    <h5>{{this.[0]}}</h5>
-    <h5>{{this.[1]}}</h5>
-{{/each}}
-{{#each capraboMongo}}
-    <h5>{{this.description}}</h5>
-    <h5>{{this.price}}</h3>
-{{/each}}
+    <div class="recipe-content">
+        
+        <div>
+            <img src="{{recipe.image}}" alt="" width="300px" height="300px">
+        </div>
 
-<h3>CARREFOUR</h3>
-{{#each carrefourPrices}}
-    <h5>{{this.[0]}}</h5>
-    <h5>{{this.[1]}}</h5>
-{{/each}}
-{{#each carrefourMongo}}
-    <h5>{{this.description}}</h5>
-    <h5>{{this.price}}</h3>
-{{/each}}
+        <div class="ing">
+            <h2>{{recipe.ingredientLines.length}} Ingredients</h2>
+            <ul>
+                {{#each recipe.ingredientLines}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            <h3>{{recipe.calories}} calories / serving</h3>
+            <h3>{{recipe.totalDaily.ENERC_KCAL.quantity}} % daily value</h3>
+
+            <a  href="{{recipe.url}}" target="_blank">See full recipe</a>
+        </div>
+    
+    </div>
+
+
+    <div class="scrap-content">
+
+        <h1>The best prices!</h1>
+
+        <div class="prices">
+            <h3>EROSKI</h3>
+            {{#each eroskiPrices}}
+                <h5>{{this.[0]}}</h5>
+                <h5>{{this.[1]}}€</h3>
+            {{/each}}
+            {{#each eroskiMongo}}
+                <h5>{{this.description}}</h5>
+                <h5>{{this.price}}€</h3>
+            {{/each}}
+        </div>
+
+        <div class="prices">
+            <h3>MERCADONA</h3>
+            {{#each mercadonaPrices}}
+                <h5>{{this.[0]}}</h5>
+                <h5>{{this.[1]}}</h5>
+            {{/each}}
+            {{#each mercadonaMongo}}
+                <h5>{{this.description}}</h5>
+                <h5>{{this.price}}</h3>
+            {{/each}}
+        </div>
+
+        <div class="prices">
+            <h3>CAPRABO</h3>
+            {{#each capraboPrices}}
+                <h5>{{this.[0]}}</h5>
+                <h5>{{this.[1]}}</h5>
+            {{/each}}
+            {{#each capraboMongo}}
+                <h5>{{this.description}}</h5>
+                <h5>{{this.price}}</h3>
+            {{/each}}
+        </div>
+
+        <div class="prices">
+            <h3>CARREFOUR</h3>
+            {{#each carrefourPrices}}
+                <h5>{{this.[0]}}</h5>
+                <h5>{{this.[1]}}</h5>
+            {{/each}}
+            {{#each carrefourMongo}}
+                <h5>{{this.description}}</h5>
+                <h5>{{this.price}}</h3>
+            {{/each}}
+        </div>        
+
+    </div>
+    
+</div>
+
+
 
 
 {{!-- <iframe src="{{recipe.url}}" title="description" style="width:1200px; height:1200px"></iframe> --}}

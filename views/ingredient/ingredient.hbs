@@ -30,9 +30,11 @@
 
     <br>
 
-    <form action="/recipe" method="POST">
+    <div class="only-form">
+      <form action="/recipe" method="POST" id="form-ing">
 
-      <ul>
+      <div class="ing">
+        <ul>
         {{#each userIngredients}}
           <li>
             <div class="list-ingredients">
@@ -41,12 +43,13 @@
             </div>
           </li>
         {{/each}}
-      </ul>
+        </ul>
+      </div>
 
-      <br>
 
-      <label for="max">Select cuisine type:</label><br>
-      <select name="cuisine">
+      <div>
+        <label for="">Select cuisine type:</label> <br>
+        <select name="cuisine">
         <option value="All" selected>All</option>
         <option value="American">American</option>
         <option value="Asian">Asian</option>
@@ -66,12 +69,12 @@
         <option value="Nordic">Nordic</option>
         <option value="South American">South American</option>
         <option value="South East Asian">South East Asian</option>
-      </select>
+        </select>
 
-      <br>
-      <br>
+        <br>
+        <br>
 
-      <label for="max">Select meal type:</label><br>
+        <label for="">Select meal type:</label> <br>
         <select name="meal">
         <option value="All" selected>All</option>
         <option value="Breakfast">Breakfast</option>
@@ -79,27 +82,34 @@
         <option value="Lunch">Lunch</option>
         <option value="Snack">Snack</option>
         <option value="TeaTime">TeaTime</option>
-      </select>
+        </select>
 
-      <br>
-      <br>
+        <br>
+        <br>
 
-      <label for="max">Maximum ingredients (0: no maximum):</label><br>
-      <input type="text" id="max" name="max" value="0">
+        <label for="max">Maximum ingredients (0: no maximum):</label><br>
+        <input type="text" id="max" name="max" value="0">
+        
+        <br>
+        <br>
+
+          <label for=""><input
+          type="checkbox"
+          name="yourIngredients"
+          id=""
+        />Use only your ingredients</label><br />
+
+        <br>
+
+        <button type="submit">Search Recipe</button>
+
+      </div>
+
       
-      <br>
-      <br>
-
-        <label for=""><input
-        type="checkbox"
-        name="yourIngredients"
-        id=""
-      />Use only your ingredients</label><br />
-
-      <br>
-
-      <button type="submit">Search Recipe</button>
     </form>
+    </div>
+
+    
     {{#if errorMessage}}
       <p class="error">{{errorMessage}}</p>
     {{/if}}

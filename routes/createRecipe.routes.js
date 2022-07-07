@@ -53,5 +53,15 @@ router.get('/delete-recipe/:id', (req, res, next) => {
     .catch((err) => next(err))
 });
 
+router.get('/edit-recipe/:id', (req, res, next) => {
+    const id = req.params.id;
+
+    Recipe.findById(id)
+        .then((recipe) => {
+            res.render('edit-recipe', {recipe});
+        })
+        .catch(err => next(err));
+
+})
 
 module.exports = router;
