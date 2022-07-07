@@ -49,3 +49,12 @@ input[type='file']{
 #imageName{
     color:#C56824;
   }
+
+  .error {
+    background: #a83a07;
+    box-sizing: border-box;
+    color: #fff;
+    margin: 20px auto;
+    padding: 20px;
+    width: 100%;
+  }

@@ -45,8 +45,11 @@
         <br>
 
         <button type="submit">Create recipe</button>
-
+    {{#if errorMessage}}
+      <p class="error">{{errorMessage}}</p>
+    {{/if}}
     </form>
+
 </div>
 
     <script>
