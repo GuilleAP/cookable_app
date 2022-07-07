@@ -5,6 +5,20 @@ const Product = require("../../models/Product.model");
 module.exports = async (ingredients) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
+
+
+  await page.setRequestInterception(true);
+
+  page.on('request', (req) => {
+    if (req.resourceType() === 'image') {
+      req.abort();
+    } else {
+      req.continue();
+    }
+  });
+
+
+
   await page.goto("https://supermercado.eroski.es", {
     waitUntil: "domcontentloaded",
   });
@@ -68,7 +82,7 @@ module.exports = async (ingredients) => {
           tag: ingredient.product,
           supermarket: "Eroski",
           description: matches[i][0],
-          price: matches[i][1],
+          price: matches[i][1]+'€',
           date: date,
         });
       } else {

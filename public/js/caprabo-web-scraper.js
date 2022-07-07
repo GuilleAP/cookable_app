@@ -5,6 +5,16 @@ const Product = require("../../models/Product.model");
 module.exports = async (ingredients) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
+  await page.setRequestInterception(true);
+
+  page.on('request', (req) => {
+    if (req.resourceType() === 'image') {
+      req.abort();
+    } else {
+      req.continue();
+    }
+  });
+
   await page.goto("https://www.capraboacasa.com/portal/es", {
     waitUntil: "domcontentloaded",
   });

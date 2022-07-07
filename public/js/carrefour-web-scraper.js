@@ -7,6 +7,18 @@ module.exports = async (ingredients) => {
   const page = await browser.newPage();
   let matches = [];
 
+
+  await page.setRequestInterception(true);
+
+  page.on('request', (req) => {
+    if (req.resourceType() === 'image') {
+      req.abort();
+    } else {
+      req.continue();
+    }
+  });
+
+
   let date = new Date();
   let year = date.getFullYear();
   let month = date.getMonth() + 1;

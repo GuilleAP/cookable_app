@@ -119,43 +119,39 @@ router.get("/:id/:selectedIngredients", isLoggedIn, async function (req, res, ne
 
     let date = new Date();
     let update = false;
+    let productsDataBase = await Product.find();
     for (let productEn of webscrapProducts) {
       let productEs = (await translatte(productEn, { to: "es" })).text;
 
-      let product = await Product.findOne({
-        tag: productEs,
-        supermarket: "Eroski",
-      });
-      if (!product) {
+      let productInDataBase = productsDataBase.filter( product =>  product.tag === productEs && product.supermarket === 'Eroski');
+      if (productInDataBase.length === 0) {
         console.log("Eroski product ", productEs, "not in data base.");
         update = false;
         eroskiSearch.push({ product: productEs, update: update });
       } else if (
-        product &&
-        (product.date.split("/")[0] != date.getFullYear() ||
-          product.date.split("/")[1] != date.getMonth() + 1 ||
-          product.date.split("/")[2] - date.getDate() >= 7)
+        productInDataBase &&
+        (productInDataBase[0].date.split("/")[0] != date.getFullYear() ||
+        productInDataBase[0].date.split("/")[1] != date.getMonth() + 1 ||
+        productInDataBase[0].date.split("/")[2] - date.getDate() >= 7)
       ) {
         console.log("Eroski product ", productEs, "not updated in data base");
         update = true;
         eroskiSearch.push({ product: productEs, update: update });
       } else {
-        eroskiMongo.push(product);
+        eroskiMongo.push(productInDataBase[0]);
+        console.log("🚀 ~ file: recipe.routes.js ~ line 143 ~ eroskiMongo", eroskiMongo)
       }
 
-      product = await Product.findOne({
-        tag: productEs,
-        supermarket: "Mercadona",
-      });
-      if (!product) {
+      productInDataBase = productsDataBase.filter( product =>  product.tag === productEs && product.supermarket === 'Mercadona');
+      if (productInDataBase.length === 0) {
         console.log("Mercadona product ", productEs, "not in data base.");
         update = false;
         mercadonaSearch.push({ product: productEs, update: update });
       } else if (
-        product &&
-        (product.date.split("/")[0] != date.getFullYear() ||
-          product.date.split("/")[1] != date.getMonth() + 1 ||
-          product.date.split("/")[2] - date.getDate() >= 7)
+        productInDataBase &&
+        (productInDataBase[0].date.split("/")[0] != date.getFullYear() ||
+        productInDataBase[0].date.split("/")[1] != date.getMonth() + 1 ||
+        productInDataBase[0].date.split("/")[2] - date.getDate() >= 7)
       ) {
         console.log(
           "Mercadona product ",
@@ -165,43 +161,39 @@ router.get("/:id/:selectedIngredients", isLoggedIn, async function (req, res, ne
         update = true;
         mercadonaSearch.push({ product: productEs, update: update });
       } else {
-        mercadonaMongo.push(product);
+        mercadonaMongo.push(productInDataBase[0]);
       }
 
-      product = await Product.findOne({
-        tag: productEs,
-        supermarket: "Caprabo",
-      });
-      if (!product) {
+      productInDataBase = productsDataBase.filter( product =>  product.tag === productEs && product.supermarket === 'Caprabo');
+
+      if (productInDataBase.length === 0) {
         console.log("Caprabo product ", productEs, "not in data base.");
         update = false;
         capraboSearch.push({ product: productEs, update: update });
       } else if (
-        product &&
-        (product.date.split("/")[0] != date.getFullYear() ||
-          product.date.split("/")[1] != date.getMonth() + 1 ||
-          product.date.split("/")[2] - date.getDate() >= 7)
+        productInDataBase &&
+        (productInDataBase[0].date.split("/")[0] != date.getFullYear() ||
+        productInDataBase[0].date.split("/")[1] != date.getMonth() + 1 ||
+        productInDataBase[0].date.split("/")[2] - date.getDate() >= 7)
       ) {
         console.log("Caprabo product ", productEs, "not updated in data base");
         update = true;
         capraboSearch.push({ product: productEs, update: update });
       } else {
-        capraboMongo.push(product);
+        capraboMongo.push(productInDataBase[0]);
       }
 
-      product = await Product.findOne({
-        tag: productEs,
-        supermarket: "Carrefour",
-      });
-      if (!product) {
+      productInDataBase = productsDataBase.filter( product =>  product.tag === productEs && product.supermarket === 'Carrefour');
+
+      if (productInDataBase.length === 0) {
         console.log("Carrefour product ", productEs, "not in data base.");
         update = false;
         carrefourSearch.push({ product: productEs, update: update });
       } else if (
-        product &&
-        (product.date.split("/")[0] != date.getFullYear() ||
-          product.date.split("/")[1] != date.getMonth() + 1 ||
-          product.date.split("/")[2] - date.getDate() >= 7)
+        productInDataBase &&
+        (productInDataBase[0].date.split("/")[0] != date.getFullYear() ||
+        productInDataBase[0].date.split("/")[1] != date.getMonth() + 1 ||
+        productInDataBase[0].date.split("/")[2] - date.getDate() >= 7)
       ) {
         console.log(
           "Carrefour product ",
@@ -211,7 +203,7 @@ router.get("/:id/:selectedIngredients", isLoggedIn, async function (req, res, ne
         update = true;
         carrefourSearch.push({ product: productEs, update: update });
       } else {
-        carrefourMongo.push(product);
+        carrefourMongo.push(productInDataBase[0]);
       }
     }
     let eroskiPrices;
