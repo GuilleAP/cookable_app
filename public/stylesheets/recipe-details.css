@@ -1,0 +1,45 @@
+h1 {
+    color: #C56824;
+}
+
+a {
+    color: #8cc643;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.recipe-content {
+    display: flex;
+    flex-direction: row;
+    gap: 150px;
+    width: 80%;
+    border: 1px solid #C56824;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 5px 10px 5px #a3a19f8f;
+}
+
+.ing {
+    padding-top: 0;
+}
+
+.prices {
+    gap: 150px;
+    width: 80%;
+    border: 1px solid #C56824;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 5px 10px 5px #a3a19f8f;
+}
+
+.scrap-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 40%;
+}

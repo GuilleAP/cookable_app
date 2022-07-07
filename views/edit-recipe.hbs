@@ -5,31 +5,31 @@
 <div class="create-recipe">
     <form action="/editRecipe0" method="POST" id="recipe-form">
 
-        <h2>Create Recipe</h2>
+        <h2>Edit Recipe {{recipe.name}}</h2>
 
         <label>Name: <br>
-            <input type="text" name="name"/>
+            <input type="text" name="name" value="{{recipe.name}}"/>
         </label>
 
         <br>
         <br>
 
         <label>Ingredients: <br><sub>Separa cada uno con una coma</sub><br>
-            <input type="text" name="ingredients" class="ingredient"/>
+            <input type="text" name="ingredients" class="ingredient" value="{{recipe.ingredients}}"/>
         </label>
 
         <br>
         <br>
 
         <label>URL: <br>
-            <input type="url" name="url"/>
+            <input type="url" name="url" value="{{recipe.url}}"/>
         </label>
 
         <br>
         <br>
 
         <label>Steps: <br>
-            <textarea name="steps" id="" cols="80" rows="15"></textarea>
+            <textarea name="steps" id="" cols="80" rows="15" value="{{recipe.steps}}"></textarea>
         </label>
 
         <br>
