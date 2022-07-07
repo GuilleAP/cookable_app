@@ -48,7 +48,7 @@ a i {
     border-radius: 5px;
     padding: 30px;
     list-style-type: none;
-    height: 120px;
+    height: 170px;
 }
 
 #containerID button {
@@ -84,3 +84,13 @@ a i {
 .ing {
     width: 300px;
 }
+
+
+.error {
+    background: #a83a07;
+    box-sizing: border-box;
+    color: #fff;
+    margin: 20px auto;
+    padding: 20px;
+    width: 100%;
+  }

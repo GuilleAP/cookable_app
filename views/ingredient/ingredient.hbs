@@ -5,116 +5,120 @@
 <div class="proves">
 
   <div id="containerID">
-  <div>
-    <form action="/ingredient" method="POST" id="searchID">
+    <div>
+      <form action="/ingredient" method="POST" id="searchID">
 
-      <h2>Select your ingredients</h2>
+        <h2>Select your ingredients</h2>
 
-      <input
-        name="name"
-        type="text"
-        class="searchClass"
-        id="searchInputID"
-        value=""
-      />
-      <button class="button-ingredients" type="submit">Add</button>
-    </form>
+        <input
+          name="name"
+          type="text"
+          class="searchClass"
+          id="searchInputID"
+          value=""
+        />
+        <button class="button-ingredients" type="submit">Add</button>
+      </form>
+      {{#if addIngredientError}}
+        <p class="error">{{addIngredientError}}</p>
+      {{/if}}
+    </div>
+
   </div>
-  {{#if errorMessage}}
-    <p class="error">{{errorMessage}}</p>
-  {{/if}}
-  </div>
+
   <div id="ingredients">
-
     <h2>My fridge</h2>
-
-    <br>
-
+    <br />
     <div class="only-form">
       <form action="/recipe" method="POST" id="form-ing">
 
-      <div class="ing">
-        <ul>
-        {{#each userIngredients}}
-          <li>
-            <div class="list-ingredients">
-              <input type="checkbox" name="selectedIngredient" value="{{this}}"/> {{this}}
-              <a href="/ingredient/deleteIngredient/{{this}}"><i class="fa-solid fa-trash-can"></i></a>
-            </div>
-          </li>
-        {{/each}}
-        </ul>
-      </div>
+        <div class="ing">
+          <ul>
+            {{#each userIngredients}}
+              <li>
+                <div class="list-ingredients">
+                  <input
+                    type="checkbox"
+                    name="selectedIngredient"
+                    value="{{this}}"
+                  />
+                  {{this}}
+                  <a href="/ingredient/deleteIngredient/{{this}}"><i
+                      class="fa-solid fa-trash-can"
+                    ></i></a>
+                </div>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
 
+        <div>
+          <label for="">Select cuisine type:</label>
+          <br />
+          <select name="cuisine">
+            <option value="All" selected>All</option>
+            <option value="American">American</option>
+            <option value="Asian">Asian</option>
+            <option value="British">British</option>
+            <option value="Caribbean">Caribbean</option>
+            <option value="Central Europe">Central Europe</option>
+            <option value="Chinese">Chinese</option>
+            <option value="Eastern Europe">Eastern Europe</option>
+            <option value="French">French</option>
+            <option value="Indian">Indian</option>
+            <option value="Italian">Italian</option>
+            <option value="Japanese">Japanese</option>
+            <option value="Kosher">Kosher</option>
+            <option value="Mediterranean">Mediterranean</option>
+            <option value="Mexican">Mexican</option>
+            <option value="Middle Eastern">Middle Eastern</option>
+            <option value="Nordic">Nordic</option>
+            <option value="South American">South American</option>
+            <option value="South East Asian">South East Asian</option>
+          </select>
 
-      <div>
-        <label for="">Select cuisine type:</label> <br>
-        <select name="cuisine">
-        <option value="All" selected>All</option>
-        <option value="American">American</option>
-        <option value="Asian">Asian</option>
-        <option value="British">British</option>
-        <option value="Caribbean">Caribbean</option>
-        <option value="Central Europe">Central Europe</option>
-        <option value="Chinese">Chinese</option>
-        <option value="Eastern Europe">Eastern Europe</option>
-        <option value="French">French</option>
-        <option value="Indian">Indian</option>
-        <option value="Italian">Italian</option>
-        <option value="Japanese">Japanese</option>
-        <option value="Kosher">Kosher</option>
-        <option value="Mediterranean">Mediterranean</option>
-        <option value="Mexican">Mexican</option>
-        <option value="Middle Eastern">Middle Eastern</option>
-        <option value="Nordic">Nordic</option>
-        <option value="South American">South American</option>
-        <option value="South East Asian">South East Asian</option>
-        </select>
+          <br />
+          <br />
 
-        <br>
-        <br>
+          <label for="">Select meal type:</label>
+          <br />
+          <select name="meal">
+            <option value="All" selected>All</option>
+            <option value="Breakfast">Breakfast</option>
+            <option value="Dinner">Dinner</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Snack">Snack</option>
+            <option value="TeaTime">TeaTime</option>
+          </select>
 
-        <label for="">Select meal type:</label> <br>
-        <select name="meal">
-        <option value="All" selected>All</option>
-        <option value="Breakfast">Breakfast</option>
-        <option value="Dinner">Dinner</option>
-        <option value="Lunch">Lunch</option>
-        <option value="Snack">Snack</option>
-        <option value="TeaTime">TeaTime</option>
-        </select>
+          <br />
+          <br />
 
-        <br>
-        <br>
+          <label for="max">Maximum ingredients (0: no maximum):</label><br />
+          <input type="text" id="max" name="max" value="0" />
 
-        <label for="max">Maximum ingredients (0: no maximum):</label><br>
-        <input type="text" id="max" name="max" value="0">
-        
-        <br>
-        <br>
+          <br />
+          <br />
 
           <label for=""><input
-          type="checkbox"
-          name="yourIngredients"
-          id=""
-        />Use only your ingredients</label><br />
+              type="checkbox"
+              name="yourIngredients"
+              id=""
+            />Use only your ingredients</label><br />
 
-        <br>
+          <br />
 
-        <button type="submit">Search Recipe</button>
+          <button type="submit">Search Recipe</button>
 
-      </div>
+        </div>
 
-      
-    </form>
+      </form>
     </div>
 
-    
     {{#if errorMessage}}
       <p class="error">{{errorMessage}}</p>
     {{/if}}
   </div>
-
   <script type="text/javascript">
     $(".searchClass").autocomplete({
       source: function (request, response) {
@@ -130,5 +134,4 @@
       }, 
     });
   </script>
-
 </div>

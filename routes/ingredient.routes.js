@@ -16,8 +16,14 @@ router.get("/", isLoggedIn, (req, res, next) => {
 
 router.post("/", (req, res, next) => {
   const name = req.body.name;
+
   User.findById(req.session.currentUser._id)
   .then((user) => {
+    const userIngredients = user.ingredients;
+    if(name === undefined || name === null || name ===""){
+      res.render("ingredient/ingredient", {userIngredients, userInSession: req.session.currentUser, addIngredientError:  "Please, type a valid ingredient" });
+      return;
+    }
     if(!user.ingredients.includes(name)) {
       User.updateOne(
         {_id : req.session.currentUser._id},

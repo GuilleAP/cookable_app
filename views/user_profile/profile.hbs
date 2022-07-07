@@ -10,13 +10,16 @@
     {{#each user.recipes}}
         {{#unless this.fromAPI}}
             <div class="recipe-box">
-                <img src="{{this.imageURL}}" alt="">
                 <div>
                     <h2>{{this.name}}</h2>
                 </div>
-
+                <img src="{{this.imageURL}}" alt="" width="300px" height="300px">
                 <div>
-                    <h4>{{this.ingredients}}</h4>
+                    <ul>
+                        {{#each this.ingredients}}
+                        <li><h4>{{this}}</h4></li>
+                        {{/each}}
+                    </ul>
                 </div>
 
                 <div>
