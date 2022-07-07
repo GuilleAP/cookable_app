@@ -2,8 +2,24 @@
   <link rel="stylesheet" href="/stylesheets/recipes.css" />
 </head>
 
-{{#if recipe}}
+{{#if userRecipes}}
+    <div class="user-recipe">
+        {{#each userRecipes}}
+            <div class="recipe-box">
+                <img src="{{this.imageURL}}" alt="{{this.name}} image" width="300px" height="300px">
+                <h3>{{this.name}}</h3>
+                {{#each this.ingredients}}
+                    <li >{{this}}</li>
+                {{/each}}
+             
+            </div>
+        {{/each}}
+    </div>
+{{else}}
+    <h3>No custom recipes found for selected ingredients</h3>
+{{/if}}
 
+{{#if recipe}}
     <div class="recipe">
         {{#each recipe}}
             <div class="recipe-box">
@@ -31,5 +47,5 @@
     </div>
 
 {{else}}
-    <h3>No recipes found for selected ingredients</h3>
+    <h3>No API recipes found for selected ingredients</h3>
 {{/if}}
