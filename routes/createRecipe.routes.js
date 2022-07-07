@@ -62,7 +62,6 @@ router.get('/delete-recipe/:id', (req, res, next) => {
 
 router.get('/edit-recipe/:id', isLoggedIn, (req, res, next) => {
     const id = req.params.id;
-    
     Recipe.findById(id)
         .then((recipe) => {
             console.log(recipe)
@@ -72,7 +71,7 @@ router.get('/edit-recipe/:id', isLoggedIn, (req, res, next) => {
 
 })
 
-router.post('/edit-recipe/:id', (req, res, next) => {
+router.post('/edit-recipe/:id', fileUploader.single('recipe-image'), (req, res, next) => {
     const id = req.params.id;
 
     Recipe.findByIdAndUpdate(id, req.body)
