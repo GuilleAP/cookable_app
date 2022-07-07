@@ -219,6 +219,7 @@ router.get("/:id", isLoggedIn, async function(req, res, next){
 
     res.render("recipe/recipe-detail", {recipe: recipe, userInSession: req.session.currentUser, eroskiPrices: eroskiPrices, mercadonaPrices: mercadonaPrices, capraboPrices: capraboPrices, carrefourPrices: carrefourPrices,
       eroskiMongo: eroskiMongo, mercadonaMongo: mercadonaMongo, capraboMongo: capraboMongo, carrefourMongo: carrefourMongo })
+      
   } catch (err) {
     next(err);
   }

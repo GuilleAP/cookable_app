@@ -4,7 +4,7 @@
 
 body {
     font-family: 'Muli', sans-serif;
-    background-color: #ffffff
+    background-color: #ffffff;
 }
 
 a {
@@ -63,3 +63,12 @@ a {
 .nav-bar #logout-form {
     display: inline;
 } 
+
+footer {
+    border-top: 2px solid #C56824;
+    display: flex;
+    height: 100px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}

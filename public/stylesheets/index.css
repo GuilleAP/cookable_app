@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+
+.index {
+    display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+    padding-top: 50px
+}
+
+.index h1 {
+	font-family: 'quicksand';
+    font-size: 50px;
+    color: #C56824;
+}
+
+.index p {
+	color: #83807e;
+}
