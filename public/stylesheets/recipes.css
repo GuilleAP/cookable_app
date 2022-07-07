@@ -22,6 +22,19 @@ a, span {
     gap: 30px;
 }
 
+.user-recipe {
+    border-bottom: 2px solid #C56824;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	align-items: baseline;
+	align-content: stretch;
+    gap: 20px;
+    padding: 50px;
+    gap: 30px;
+}
+
 .recipe-box {
     display:flex;
     flex-direction: column;
