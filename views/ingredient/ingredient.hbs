@@ -38,7 +38,7 @@
         {{#each userIngredients}}
           <li>
             <div class="list-ingredients">
-              <input type="checkbox" name="name" value="{{this}}"/> {{this}}
+              <input type="checkbox" name="selectedIngredient" value="{{this}}"/> {{this}}
               <a href="/ingredient/deleteIngredient/{{this}}"><i class="fa-solid fa-trash-can"></i></a>
             </div>
           </li>

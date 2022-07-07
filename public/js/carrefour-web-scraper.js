@@ -25,12 +25,26 @@ module.exports = async (ingredients) => {
       .catch((e) => (canContinue = false));
     if (canContinue) {
       console.log("classe .ebx-result-title trobada");
-      matches.push(
-        await page.evaluate(() => [
-          document.querySelector(".ebx-result-title").innerHTML,
-          document.querySelector(".ebx-result-price__value").innerHTML,
-        ])
-      );
+
+      const resultScraping = await page.evaluate(() => {
+        if (
+          document.querySelector(".ebx-result-title") != null &&
+          document.querySelector(".ebx-result-price__value") != null &&
+          document.querySelector(".ebx-result-title") != undefined &&
+          document.querySelector(".ebx-result-price__value") != undefined
+        ) {
+          return [
+            document.querySelector(".ebx-result-title").innerHTML,
+            document.querySelector(".ebx-result-price__value").innerHTML,
+          ];
+        } else {
+          return ["NOT FOUND", "NOT FOUND"];
+        }
+      });
+
+      matches.push(resultScraping);
+      if (matches[i][0] === "NOT FOUND") matches[i][0] = ingredient.product;
+
       if (!ingredient.update) {
         console.log(
           "🚀 ~ file: carrefour-web-scraper.js ~ line 37 ~ module.exports= ~ i",
@@ -60,7 +74,4 @@ module.exports = async (ingredients) => {
     matches
   );
   return matches;
-  // } catch (err) {
-  //   console.log('AQUIIII',err);
-  // }
 };

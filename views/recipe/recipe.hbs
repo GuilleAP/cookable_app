@@ -18,10 +18,10 @@
 {{else}}
     <h3>No custom recipes found for selected ingredients</h3>
 {{/if}}
-
 {{#if recipe}}
     <div class="recipe">
         {{#each recipe}}
+
             <div class="recipe-box">
                 <h3>{{this.recipe.label}}</h3>
                 <div class="image-recipe">
@@ -36,12 +36,9 @@
                     </ul>
                 </div>
 
-                <form method="get" action="/recipe/{{this.ID}}">
+                <form method="get" action="/recipe/{{this.ID}}/{{../selectedIngredient}}">
                     <button type="submit">Recipe Details</button>
                 </form>
-                {{!-- <form method="POST" action="/recipe/add-favorite/{{this.ID}}">
-                    <button type="submit"><i class="fa-solid fa-heart-circle-plus"></i></button>
-                </form> --}}
             </div>
         {{/each}}
     </div>
