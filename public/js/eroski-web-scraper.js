@@ -30,7 +30,7 @@ module.exports = async (ingredients) => {
       },
       ingredient
     );
-    console.log("Ingredient introduït");
+    console.log("Ingredient", ingredient.product, "introduït");
 
     await page.evaluate((selector) => {
       return document.querySelector(".search-button").click();
@@ -41,14 +41,28 @@ module.exports = async (ingredients) => {
       .catch((e) => (canContinue = false));
     if (!ingredient.update) {
       console.log("classe product-description trobada");
-      matches.push(
-        await page.evaluate(() => [
-          document.querySelector(".product-title > a").innerHTML,
-          document
-            .querySelector(".price-offer-now")
-            .innerHTML.replace(/,/g, "'"),
-        ])
-      );
+
+      const resultScraping = await page.evaluate(() => {
+        if (
+          document.querySelector(".product-title > a") != null &&
+          document.querySelector(".price-offer-now") != null &&
+          document.querySelector(".product-title > a") != undefined &&
+          document.querySelector(".price-offer-now") != undefined
+        ) {
+          return [
+            document.querySelector(".product-title > a").innerHTML,
+            document
+              .querySelector(".price-offer-now")
+              .innerHTML.replace(/,/g, "'"),
+          ];
+        } else {
+          return ["NOT FOUND", "NOT FOUND"];
+        }
+      });
+
+      matches.push(resultScraping);
+      if (matches[i][0] === "NOT FOUND") matches[i][0] = ingredient.product;
+
       if (!ingredient.update) {
         Product.create({
           tag: ingredient.product,

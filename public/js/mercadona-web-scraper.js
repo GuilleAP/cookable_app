@@ -27,12 +27,27 @@ module.exports = async (ingredients) => {
       .catch((e) => (canContinue = false));
     if (!ingredient.update) {
       console.log("classe search-results__header trobada");
-      matches.push(
-        await page.evaluate(() => [
-          document.querySelector(".product-cell__description-name").innerHTML,
-          document.querySelector(".product-price__unit-price").innerHTML,
-        ])
-      );
+
+      const resultScraping = await page.evaluate(() => {
+        if (
+          document.querySelector(".product-cell__description-name") != null &&
+          document.querySelector(".product-price__unit-price") != null &&
+          document.querySelector(".product-cell__description-name") !=
+            undefined &&
+          document.querySelector(".product-price__unit-price") != undefined
+        ) {
+          return [
+            document.querySelector(".product-cell__description-name").innerHTML,
+            document.querySelector(".product-price__unit-price").innerHTML,
+          ];
+        } else {
+          return ["NOT FOUND", "NOT FOUND"];
+        }
+      });
+
+      matches.push(resultScraping);
+      if (matches[i][0] === "NOT FOUND") matches[i][0] = ingredient.product;
+
       if (!ingredient.update) {
         Product.create({
           tag: ingredient.product,

@@ -40,18 +40,33 @@ module.exports = async (ingredients) => {
     await page
       .waitForSelector(".ellipsis", { timeout: 5000 })
       .catch((e) => (canContinue = false));
+
     if (!ingredient.update) {
-      console.log('classe .ellipsis" trobada');
-      matches.push(
-        await page.evaluate(() => [
-          document.querySelector(".ellipsis").innerHTML,
-          document.querySelector(".product-price").innerHTML,
-        ])
-      );
       console.log(
-        "🚀 ~ file: caprabo-web-scraper.js ~ line 39 ~ module.exports= ~ matches",
-        matches
+        "🚀 ~ file: caprabo-web-scraper.js ~ line 45 ~ module.exports= ~ ingredient",
+        ingredient
       );
+
+      console.log('classe .ellipsis" trobada');
+      const resultScraping = await page.evaluate(() => {
+
+        if (
+          document.querySelector(".ellipsis") != null &&
+          document.querySelector(".product-price") != null &&
+          document.querySelector(".ellipsis") != undefined &&
+          document.querySelector(".product-price") != undefined
+        ) {
+          return [
+            document.querySelector(".ellipsis").innerHTML,
+            document.querySelector(".product-price").innerHTML
+          ];
+        } else {
+          return ['NOT FOUND', "NOT FOUND"];
+        }
+      });
+      matches.push(resultScraping);
+      if(matches[i][0] === 'NOT FOUND') matches[i][0] = ingredient.product;
+
       if (!ingredient.update) {
         Product.create({
           tag: ingredient.product,
