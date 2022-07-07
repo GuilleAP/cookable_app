@@ -3,7 +3,7 @@
 </head>
 
 <div class="create-recipe">
-    <form action="/editRecipe0" method="POST" id="recipe-form">
+    <form action="/createRecipe/edit-recipe/{{recipe._id}}" method="POST" id="recipe-form">
 
         <h2>Edit Recipe {{recipe.name}}</h2>
 
@@ -22,20 +22,20 @@
         <br>
 
         <label>URL: <br>
-            <input type="url" name="url" value="{{recipe.url}}"/>
+            <input type="url" name="url" value="{{recipe.url}}" />
         </label>
 
         <br>
         <br>
 
         <label>Steps: <br>
-            <textarea name="steps" id="" cols="80" rows="15" value="{{recipe.steps}}"></textarea>
+            <textarea name="steps" id="" cols="80" rows="15" value="{{{recipe.steps}}}">{{recipe.steps}}</textarea>
         </label>
 
         <br>
         <br>
 
-        <button type="submit">Create recipe</button>
+        <button type="submit">Edit recipe</button>
 
     </form>
 </div>

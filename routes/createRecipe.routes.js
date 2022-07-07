@@ -12,12 +12,19 @@ router.get("/", isLoggedIn, (req, res, next) => {
 
 router.post('/', fileUploader.single('recipe-image'), (req, res, next) => {
     const ingredientsArr = req.body.ingredients.split(',');
-
+    console.log(req);
+    let image;
+    if(req.file === undefined) {
+        image = 'images/default_image.png';
+    } else {
+        image = req.file.path;
+    }
+    console.log(req.body);
     Recipe.create( {
         name: req.body.name,
         ingredients: ingredientsArr,
         url: req.body.url,
-        imageURL: req.file.path,
+        imageURL: image,
         steps: req.body.steps,
     })
     .then((recipe) => {
@@ -53,15 +60,26 @@ router.get('/delete-recipe/:id', (req, res, next) => {
     .catch((err) => next(err))
 });
 
-router.get('/edit-recipe/:id', (req, res, next) => {
+router.get('/edit-recipe/:id', isLoggedIn, (req, res, next) => {
     const id = req.params.id;
-
+    
     Recipe.findById(id)
         .then((recipe) => {
-            res.render('edit-recipe', {recipe});
+            console.log(recipe)
+            res.render('edit-recipe', {recipe, userInSession: req.session.currentUser});
         })
         .catch(err => next(err));
 
 })
+
+router.post('/edit-recipe/:id', (req, res, next) => {
+    const id = req.params.id;
+
+    Recipe.findByIdAndUpdate(id, req.body)
+    .then((recipe) => {
+        res.redirect('/userProfile');
+    })
+
+});
 
 module.exports = router;

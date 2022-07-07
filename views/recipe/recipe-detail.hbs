@@ -33,50 +33,50 @@
         <h1>The best prices!</h1>
 
         <div class="prices">
-            <h3>EROSKI</h3>
+            <a href="https://www.eroski.es/" target="_blank"><img src="/images/eroski_logo.png" alt="" width="260" height="60"></a>
             {{#each eroskiPrices}}
                 <h5>{{this.[0]}}</h5>
                 <h5>{{this.[1]}}€</h3>
             {{/each}}
             {{#each eroskiMongo}}
                 <h5>{{this.description}}</h5>
-                <h5>{{this.price}}€</h3>
+                <h2>{{this.price}}€</h2>
             {{/each}}
         </div>
 
         <div class="prices">
-            <h3>MERCADONA</h3>
+            <a href="https://www.mercadona.es/" target="_blank"><img src="/images/mercadona_logo.png" alt="" width="260" height="50"></a>
             {{#each mercadonaPrices}}
                 <h5>{{this.[0]}}</h5>
                 <h5>{{this.[1]}}</h5>
             {{/each}}
             {{#each mercadonaMongo}}
                 <h5>{{this.description}}</h5>
-                <h5>{{this.price}}</h3>
+                <h2>{{this.price}}</h2>
             {{/each}}
         </div>
 
         <div class="prices">
-            <h3>CAPRABO</h3>
+            <a href="https://www.caprabo.com/ca/home/" target="_blank"><img src="/images/caprabo_logo.png" alt="" width="260" height="45"></a>
             {{#each capraboPrices}}
                 <h5>{{this.[0]}}</h5>
                 <h5>{{this.[1]}}</h5>
             {{/each}}
             {{#each capraboMongo}}
                 <h5>{{this.description}}</h5>
-                <h5>{{this.price}}</h3>
+                <h2>{{this.price}}</h2>
             {{/each}}
         </div>
 
         <div class="prices">
-            <h3>CARREFOUR</h3>
+            <a href="https://www.carrefour.es/" target="_blank"><img src="/images/carrefour_logo.png" alt="" width="260" height="60"></a>
             {{#each carrefourPrices}}
                 <h5>{{this.[0]}}</h5>
                 <h5>{{this.[1]}}</h5>
             {{/each}}
             {{#each carrefourMongo}}
                 <h5>{{this.description}}</h5>
-                <h5>{{this.price}}</h3>
+                <h2>{{this.price}}</h2>
             {{/each}}
         </div>        
 
